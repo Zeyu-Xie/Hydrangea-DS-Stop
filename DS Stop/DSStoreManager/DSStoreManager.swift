@@ -1,22 +1,29 @@
 import SwiftUI
 
 struct DSStoreManager: View {
-        
+    @State private var folderPath: String?
     var body: some View {
-        NavigationView() {
-            List {
-                NavigationLink(destination: Text("Export Function")) {
-                    Label("Export", systemImage: "square.and.arrow.up")
-                }
-                NavigationLink(destination: Text("Imort Function")) {
-                    Label("Import", systemImage: "square.and.arrow.down")
-                }
-                NavigationLink(destination: Text("Delete Function")) {
-                    Label("Delete", systemImage: "xmark.bin")
+        HStack {
+            VStack {
+                FolderSelectorView(folderPath: $folderPath)
+                if let folderPath = folderPath {
+                    Text("Folder Path: \(folderPath)")
                 }
             }
-            .listStyle(SidebarListStyle())
-            .navigationTitle(".DS_Store Manager")
+            .frame(maxWidth: .infinity)
+            VStack {
+                Button("Export") {
+                    print("Export func")
+                }
+                Button("Import") {
+                    print("Import func")
+                }
+                Button("Delete") {
+                    print("Delete func")
+                }
+            }.frame(maxWidth: .infinity)
+                
         }
     }
 }
+
