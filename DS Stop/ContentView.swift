@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  DS Stop
-//
-//  Created by Zeyu Xie on 2024-12-08.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -14,10 +7,14 @@ struct ContentView: View {
     var body: some View {
         NavigationView() {
             List {
+                NavigationLink(destination: DSStoreManager()) {
+                    Label(".DS_Store", systemImage: "d.square")
+                }
                 NavigationLink(destination: Text("Dealing with .DS_Store")) {
-                    Label(".DS_Store", systemImage: "globe")
+                    Label(".git", systemImage: "g.square")
                 }
             }
+            .padding(.vertical)
             .listStyle(SidebarListStyle())
             .navigationTitle("DS Stop")
         }
