@@ -5,7 +5,9 @@ struct DSStoreManager: View {
     var body: some View {
         HStack {
             VStack {
-                FolderSelectorView(folderPath: $folderPath)
+                Button("Select Folder", action: {
+                    folderPath = selectFolderPath()
+                })
                 if let folderPath = folderPath {
                     Text("Folder Path: \(folderPath)")
                 }
