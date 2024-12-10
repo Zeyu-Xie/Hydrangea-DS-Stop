@@ -16,7 +16,7 @@ struct DSStoreManager: View {
             VStack {
                 Button("Export") {
                     if let folderPath = folderPath {
-                        func_export(folderPath: folderPath)
+                        func_export_DSStore(folderPath: folderPath)
                     }
                     else {
                         print("Folder Path Not Loaded")
@@ -25,7 +25,7 @@ struct DSStoreManager: View {
                 }
                 Button("Import") {
                     if let folderPath = folderPath {
-                        func_import(folderPath: folderPath)
+                        func_import_DSStore(folderPath: folderPath)
                     }
                     else {
                         print("Folder Path Not Loaded")
@@ -33,7 +33,7 @@ struct DSStoreManager: View {
                 }
                 Button("Delete") {
                     if let folderPath = folderPath {
-                        func_delete(folderPath: folderPath)
+                        func_delete_DSStore(folderPath: folderPath)
                     }
                     else {
                         print("Folder Path Not Loaded")

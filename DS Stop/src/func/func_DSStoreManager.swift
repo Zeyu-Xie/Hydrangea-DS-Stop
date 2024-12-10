@@ -41,7 +41,7 @@ func treeEncodor(files: Array<String>, rootPath: String) -> [String: Data] {
 }
 
 // Export the binary file
-func func_export(folderPath: String) {
+func func_export_DSStore(folderPath: String) {
     let encodedFile = treeEncodor(
         files: extractFile(
             directory: folderPath,
@@ -63,7 +63,7 @@ func func_export(folderPath: String) {
 }
 
 // Import the binary file to recover the .DS_Store files
-func func_import(folderPath: String) {
+func func_import_DSStore(folderPath: String) {
     var binPath: String = ""
     let openPanel = NSOpenPanel()
     openPanel.title = "Select Binary File"
@@ -98,7 +98,7 @@ func func_import(folderPath: String) {
 
 
 // Delete all .DS_Store files
-func func_delete(folderPath: String) {
+func func_delete_DSStore(folderPath: String) {
     let fileManager = FileManager.default
     let directoryURL = URL(fileURLWithPath: folderPath)
     guard let enumerator = fileManager.enumerator(at: directoryURL, includingPropertiesForKeys: nil) else {

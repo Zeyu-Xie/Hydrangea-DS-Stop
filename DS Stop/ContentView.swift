@@ -12,7 +12,7 @@ struct ContentView: View {
                 NavigationLink(destination: DSStoreManager()) {
                     Label(".DS_Store", systemImage: "d.square")
                 }
-                NavigationLink(destination: Text("Dealing with .DS_Store")) {
+                NavigationLink(destination: GitManager()) {
                     Label(".git", systemImage: "g.square")
                 }
             }
@@ -21,10 +21,7 @@ struct ContentView: View {
             .navigationTitle("DS Stop")
         }
         .onAppear() {
-//            let fls = extractFile(directory: "/Users/zeyuxie/Downloads", fileNames: [".DS_Store", "444"])
-//            print(fls)
-//            let enc = treeEncodor(files: fls, rootPath: "/Users/zeyuxie/Downloads")
-//            print(enc)
+            print("App Started")
         }
     }
 }
