@@ -2,9 +2,12 @@ import Foundation
 import SwiftUI
 
 // Extract certain files
-func extractFile(directory: String, fileNames: [String]) -> Array<String> {
+func extractFile(rootPath: String, fileNames: [String]) -> Array<String> {
+    if !isDir(path: rootPath) {
+        return []
+    }
     let fileManager = FileManager.default
-    let directoryURL = URL(fileURLWithPath: directory)
+    let directoryURL = URL(fileURLWithPath: rootPath)
     guard let enumerator = fileManager.enumerator(at: directoryURL, includingPropertiesForKeys: nil) else {
         return []
     }
@@ -19,6 +22,9 @@ func extractFile(directory: String, fileNames: [String]) -> Array<String> {
 
 // Encode the extracted files to a single binary file
 func treeEncodor(files: Array<String>, rootPath: String) -> [String: Data] {
+    if !isDir(path: rootPath) {
+        return [:]
+    }
     var output: [String: Data] = [:]
     for file in files {
         var isDirectory: ObjCBool = false
@@ -44,7 +50,7 @@ func treeEncodor(files: Array<String>, rootPath: String) -> [String: Data] {
 func func_export_DSStore(folderPath: String) {
     let encodedFile = treeEncodor(
         files: extractFile(
-            directory: folderPath,
+            rootPath: folderPath,
             fileNames: [".DS_Store"]
         ),
         rootPath: folderPath
@@ -64,6 +70,9 @@ func func_export_DSStore(folderPath: String) {
 
 // Import the binary file to recover the .DS_Store files
 func func_import_DSStore(folderPath: String) {
+    if !isDir(path: folderPath) {
+        return
+    }
     var binPath: String = ""
     let openPanel = NSOpenPanel()
     openPanel.title = "Select Binary File"
@@ -99,6 +108,9 @@ func func_import_DSStore(folderPath: String) {
 
 // Delete all .DS_Store files
 func func_delete_DSStore(folderPath: String) {
+    if !isDir(path: folderPath) {
+        return
+    }
     let fileManager = FileManager.default
     let directoryURL = URL(fileURLWithPath: folderPath)
     guard let enumerator = fileManager.enumerator(at: directoryURL, includingPropertiesForKeys: nil) else {

@@ -2,7 +2,16 @@ import AppKit
 import Foundation
 import UniformTypeIdentifiers
 
-// Write certain content to a file and export it
+func isFile(path: String) -> Bool {
+    var isDirectory: ObjCBool = false
+    return FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) && !isDirectory.boolValue
+}
+
+func isDir(path: String) -> Bool {
+    var isDirectory: ObjCBool = false
+    return FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) && isDirectory.boolValue    
+}
+
 func exportFile(
     content: Data,
     defaultFileName: String,
