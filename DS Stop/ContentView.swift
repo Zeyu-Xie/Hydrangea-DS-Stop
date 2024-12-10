@@ -20,7 +20,11 @@ struct ContentView: View {
             .listStyle(SidebarListStyle())
             .navigationTitle("DS Stop")
         }
+        .windowResizeBehavior(.disabled)
         .onAppear() {
+            if let window = NSApplication.shared.windows.first {
+                window.setContentSize(NSSize(width: 800, height: 300)) // 设置窗口初始大小
+            }
             print("App Started")
         }
     }

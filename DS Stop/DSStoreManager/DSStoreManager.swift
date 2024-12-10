@@ -4,15 +4,25 @@ struct DSStoreManager: View {
     @State private var folderPath: String?
     var body: some View {
         HStack {
-            VStack {
+            VStack(alignment: .leading) {
+                Text("Select Your Target Folder")
+                    .font(.title)
+                    .padding()
+                Text(
+                    "Select one folder to export, import, or delete the .DS_Store file."
+                )
+                .padding()
                 Button("Select Folder", action: {
                     folderPath = selectFolderPath()
                 })
+                .padding()
                 if let folderPath = folderPath {
-                    Text("Folder Path: \(folderPath)")
+                    Text("Folder Path: \(folderPath)").padding()
                 }
             }
             .frame(maxWidth: .infinity)
+            .multilineTextAlignment(.leading)
+            Divider()
             VStack {
                 Button("Export") {
                     if let folderPath = folderPath {
@@ -22,7 +32,7 @@ struct DSStoreManager: View {
                         print("Folder Path Not Loaded")
                     }
                     
-                }
+                }.padding()
                 Button("Import") {
                     if let folderPath = folderPath {
                         func_import_DSStore(folderPath: folderPath)
@@ -30,7 +40,7 @@ struct DSStoreManager: View {
                     else {
                         print("Folder Path Not Loaded")
                     }
-                }
+                }.padding()
                 Button("Delete") {
                     if let folderPath = folderPath {
                         func_delete_DSStore(folderPath: folderPath)
@@ -38,7 +48,7 @@ struct DSStoreManager: View {
                     else {
                         print("Folder Path Not Loaded")
                     }
-                }
+                }.padding()
             }.frame(maxWidth: .infinity)
                 
         }

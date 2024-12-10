@@ -1,9 +1,14 @@
 import Foundation
 
 // Delete all .git folders
-func func_delete_Git(folderPath: String) {
+func func_delete_Git(rootPath: String) {
+    
+    if !isDir(path: rootPath) {
+        return
+    }
+    
     let fileManager = FileManager.default
-    let directoryURL = URL(fileURLWithPath: folderPath)
+    let directoryURL = URL(fileURLWithPath: rootPath)
     guard let enumerator = fileManager.enumerator(at: directoryURL, includingPropertiesForKeys: nil) else {
         return
     }

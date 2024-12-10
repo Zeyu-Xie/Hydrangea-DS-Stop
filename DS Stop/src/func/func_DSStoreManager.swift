@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 // Extract certain files
-func extractFile(rootPath: String, fileNames: [String]) -> Array<String> {
+func extractFile(rootPath: String, fileNames: Array<String>) -> Array<String> {
     if !isDir(path: rootPath) {
         return []
     }

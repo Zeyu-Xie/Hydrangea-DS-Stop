@@ -13,17 +13,17 @@ struct GitManager: View {
                 }
             }
             .frame(maxWidth: .infinity)
+            Divider()
             VStack {
                 Button("Delete") {
                     if let folderPath = folderPath {
-                        func_delete_Git(folderPath: folderPath)
+                        func_delete_Git(rootPath: folderPath)
                     }
                     else {
                         print("Folder Path Not Loaded")
                     }
                 }
             }.frame(maxWidth: .infinity)
-                
         }
     }
 }
