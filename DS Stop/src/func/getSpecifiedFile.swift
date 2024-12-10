@@ -1,10 +1,3 @@
-//
-//  getSpecifiedFile.swift
-//  DS Stop
-//
-//  Created by Zeyu Xie on 2024-12-09.
-//
-
 import Foundation
 
 func getSpecifiedFile(fromDirectory: String, targetFile: String) -> Array<String> {

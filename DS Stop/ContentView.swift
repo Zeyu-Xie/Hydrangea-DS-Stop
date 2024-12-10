@@ -1,3 +1,5 @@
+// Wri
+
 import SwiftUI
 
 struct ContentView: View {
@@ -19,10 +21,10 @@ struct ContentView: View {
             .navigationTitle("DS Stop")
         }
         .onAppear() {
-            output = getSpecifiedFile(
-                fromDirectory: "/Users/zeyuxie/Downloads/",
-                targetFile: "1"
-            )
+//            let fls = extractFile(directory: "/Users/zeyuxie/Downloads", fileNames: [".DS_Store", "444"])
+//            print(fls)
+//            let enc = treeEncodor(files: fls, rootPath: "/Users/zeyuxie/Downloads")
+//            print(enc)
         }
     }
 }
