@@ -14,24 +14,7 @@ struct DSStoreManager: View {
             VStack {
                 Button("Export") {
                     if let folderPath = folderPath {
-                        let encodedFile = treeEncodor(
-                            files: extractFile(
-                                directory: folderPath,
-                                fileNames: [".DS_Store"]
-                            ),
-                            rootPath: folderPath
-                        )
-                        do {
-                            let content = try JSONEncoder().encode(encodedFile)
-                            exportFile(
-                                content: content,
-                                defaultFileName: "export.bin",
-                                allowedType: [.data]
-                            )
-                        } catch {
-                            print("Failed to encode JSON: \(error)")
-                        }
-                        
+                        func_export(folderPath: folderPath)
                     }
                     else {
                         print("Folder Path Not Loaded")
@@ -39,10 +22,20 @@ struct DSStoreManager: View {
                     
                 }
                 Button("Import") {
-                    print("Import func")
+                    if let folderPath = folderPath {
+                        func_import(folderPath: folderPath)
+                    }
+                    else {
+                        print("Folder Path Not Loaded")
+                    }
                 }
                 Button("Delete") {
-                    print("Delete func")
+                    if let folderPath = folderPath {
+                        func_delete(folderPath: folderPath)
+                    }
+                    else {
+                        print("Folder Path Not Loaded")
+                    }
                 }
             }.frame(maxWidth: .infinity)
                 
