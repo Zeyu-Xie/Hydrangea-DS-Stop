@@ -73,7 +73,6 @@ struct DSStoreExportButton: View {
         Button("Export") {
             if let folderPath = folderPath {
                 fileList = export_DSStore(folderPath: folderPath)
-                fileList = fileList.map { folderPath + $0 }
             }
             isPresented = true
         }
@@ -111,7 +110,6 @@ struct DSStoreImportButton: View {
         Button("Import") {
             if let folderPath = folderPath {
                 fileList = import_DSStore(folderPath: folderPath)
-                fileList = fileList.map { folderPath + $0 }
             }
             isPresented = true
         }

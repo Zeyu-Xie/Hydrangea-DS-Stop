@@ -46,6 +46,7 @@ func _treeEncodor(files: Array<String>, rootPath: String) -> [String: Data] {
 }
 
 // Export .DS_Store data as a binary file
+// Return the list of the path of the recorded .DS_Store files
 func export_DSStore(folderPath: String) -> Array<String> {
     let encodedFile = _treeEncodor(
         files: _extractFile(
@@ -58,10 +59,10 @@ func export_DSStore(folderPath: String) -> Array<String> {
         let content = try JSONEncoder().encode(encodedFile)
         writeFile(
             content: content,
-            defaultFileName: "export.bin",
+            defaultFileName: "DS_Store_Data_Exported.bin",
             allowedType: [.data]
         )
-        return Array(encodedFile.keys)
+        return Array(encodedFile.keys).map { folderPath + $0 }
     } catch {
         return []
     }
@@ -69,6 +70,7 @@ func export_DSStore(folderPath: String) -> Array<String> {
 }
 
 // Import the binary file to recover .DS_Store
+// Return the lists of paths of the changed .DS_Store files
 func import_DSStore(folderPath: String) -> Array<String> {
     if !isDir(path: folderPath) {
         return []
@@ -103,7 +105,7 @@ func import_DSStore(folderPath: String) -> Array<String> {
                 print("Failed to save file at \(fileURL): \(error)")
             }
         }
-        return Array(decodedFile.keys)
+        return Array(decodedFile.keys).map { folderPath + $0 }
     } catch {
         print("Failed to decode JSON: \(error)")
         return []
@@ -111,6 +113,7 @@ func import_DSStore(folderPath: String) -> Array<String> {
 }
 
 // Recursively delete .DS_Store
+// Return the lists of paths of successfully deleted files and failed ones.
 func delete_DSStore(folderPath: String) -> (Array<String>, Array<String>) {
     if !isDir(path: folderPath) {
         return ([], [])

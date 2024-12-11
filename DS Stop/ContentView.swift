@@ -24,7 +24,5 @@ struct ContentView: View {
             }
             print("App Started")
         }
-        .onAppear() {
-        }
     }
 }

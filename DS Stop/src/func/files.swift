@@ -25,7 +25,8 @@ func _listTree(path: String) -> Dictionary<String, Any> {
 
 func _stringifyTree(tree: Dictionary<String, Any>, indent: Int = 0) -> String {
     var output = ""
-    for (key, value) in tree {
+    let sortedTree = tree.sorted { $0.key < $1.key }
+    for (key, value) in sortedTree {
         if value is String {
             output += String(repeating: " ", count: indent) + "  " + key + "\n"
         } else if value is Dictionary<String, Any> {
