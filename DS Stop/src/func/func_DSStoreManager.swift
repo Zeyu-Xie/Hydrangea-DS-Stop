@@ -1,8 +1,7 @@
 import Foundation
 import SwiftUI
 
-// Extract certain files
-func extractFile(rootPath: String, fileNames: Array<String>) -> Array<String> {
+func _extractFile(rootPath: String, fileNames: Array<String>) -> Array<String> {
     if !isDir(path: rootPath) {
         return []
     }
@@ -21,7 +20,7 @@ func extractFile(rootPath: String, fileNames: Array<String>) -> Array<String> {
 }
 
 // Encode the extracted files to a single binary file
-func treeEncodor(files: Array<String>, rootPath: String) -> [String: Data] {
+func _treeEncodor(files: Array<String>, rootPath: String) -> [String: Data] {
     if !isDir(path: rootPath) {
         return [:]
     }
@@ -46,10 +45,10 @@ func treeEncodor(files: Array<String>, rootPath: String) -> [String: Data] {
     return output
 }
 
-// Export the binary file
-func func_export_DSStore(folderPath: String) {
-    let encodedFile = treeEncodor(
-        files: extractFile(
+// Export .DS_Store data as a binary file
+func export_DSStore(folderPath: String) -> Array<String> {
+    let encodedFile = _treeEncodor(
+        files: _extractFile(
             rootPath: folderPath,
             fileNames: [".DS_Store"]
         ),
@@ -57,21 +56,22 @@ func func_export_DSStore(folderPath: String) {
     )
     do {
         let content = try JSONEncoder().encode(encodedFile)
-        exportFile(
+        writeFile(
             content: content,
             defaultFileName: "export.bin",
             allowedType: [.data]
         )
+        return Array(encodedFile.keys)
     } catch {
-        print("Failed to encode JSON: \(error)")
+        return []
     }
     
 }
 
-// Import the binary file to recover the .DS_Store files
-func func_import_DSStore(folderPath: String) {
+// Import the binary file to recover .DS_Store
+func import_DSStore(folderPath: String) -> Array<String> {
     if !isDir(path: folderPath) {
-        return
+        return []
     }
     var binPath: String = ""
     let openPanel = NSOpenPanel()
@@ -84,12 +84,15 @@ func func_import_DSStore(folderPath: String) {
     }
     else {
         print("User cancelled the operation")
-        return
+        return []
     }
     let url = URL(fileURLWithPath: binPath)
     do {
         let data = try Data(contentsOf: url)
-        let decodedFile = try JSONDecoder().decode([String: Data].self, from: data)
+        let decodedFile = try JSONDecoder().decode(
+            [String: Data].self,
+            from: data
+        )
         for (relativePath, fileContent) in decodedFile {
             let filePath = folderPath + relativePath
             let fileURL = URL(fileURLWithPath: filePath)
@@ -100,20 +103,25 @@ func func_import_DSStore(folderPath: String) {
                 print("Failed to save file at \(fileURL): \(error)")
             }
         }
+        return Array(decodedFile.keys)
     } catch {
         print("Failed to decode JSON: \(error)")
+        return []
     }
 }
 
-func func_delete_DSStore(folderPath: String) {
+// Recursively delete .DS_Store
+func delete_DSStore(folderPath: String) -> (Array<String>, Array<String>) {
     if !isDir(path: folderPath) {
-        return
+        return ([], [])
     }
     let fileManager = FileManager.default
     let directoryURL = URL(fileURLWithPath: folderPath)
     guard let enumerator = fileManager.enumerator(at: directoryURL, includingPropertiesForKeys: nil) else {
-        return
+        return ([], [])
     }
+    var succList: Array<String> = []
+    var failList: Array<String> = []
     for case let fileURL as URL in enumerator {
         if fileURL.lastPathComponent == ".DS_Store" {
             do {
@@ -122,9 +130,12 @@ func func_delete_DSStore(folderPath: String) {
                 }
                 try fileManager.removeItem(at: fileURL)
                 print("Deleted .DS_Store file at \(fileURL)")
+                succList.append(fileURL.path)
             } catch {
                 print("Failed to delete file at \(fileURL): \(error)")
+                failList.append(fileURL.path)
             }
         }
     }
+    return (succList, failList)
 }

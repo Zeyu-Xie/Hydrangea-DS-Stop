@@ -12,9 +12,6 @@ struct ContentView: View {
                 NavigationLink(destination: DSStoreManager()) {
                     Label(".DS_Store", systemImage: "d.square")
                 }
-                NavigationLink(destination: GitManager()) {
-                    Label(".git", systemImage: "g.square")
-                }
             }
             .padding(.vertical)
             .listStyle(SidebarListStyle())

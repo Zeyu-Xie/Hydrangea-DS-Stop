@@ -2,16 +2,6 @@ import AppKit
 import Foundation
 import UniformTypeIdentifiers
 
-func isFile(path: String) -> Bool {
-    var isDirectory: ObjCBool = false
-    return FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) && !isDirectory.boolValue
-}
-
-func isDir(path: String) -> Bool {
-    var isDirectory: ObjCBool = false
-    return FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) && isDirectory.boolValue    
-}
-
 func _listTree(path: String) -> Dictionary<String, Any> {
     var output: Dictionary<String, Any> = [:]
     let fileManager = FileManager.default
@@ -40,17 +30,40 @@ func _stringifyTree(tree: Dictionary<String, Any>, indent: Int = 0) -> String {
             output += String(repeating: " ", count: indent) + "  " + key + "\n"
         } else if value is Dictionary<String, Any> {
             output += String(repeating: " ", count: indent) + "- " + key + "\n"
-            output += _stringifyTree(tree: value as! Dictionary<String, Any>, indent: indent + 2)
+            output += _stringifyTree(
+                tree: value as! Dictionary<String,
+                Any>,
+                indent: indent + 2
+            )
         }
     }
     return output
 }
 
-func tree(path: String) -> String {
+// If the path represents a file
+func isFile(path: String) -> Bool {
+    var isDirectory: ObjCBool = false
+    return FileManager.default
+        .fileExists(
+            atPath: path,
+            isDirectory: &isDirectory
+        ) && !isDirectory.boolValue
+}
+
+// If the path represents a folder
+func isDir(path: String) -> Bool {
+    var isDirectory: ObjCBool = false
+    return FileManager.default
+        .fileExists(atPath: path, isDirectory: &isDirectory) && isDirectory.boolValue    
+}
+
+// Return a stringified tree of files
+func StringifiedTree(path: String) -> String {
     return _stringifyTree(tree: _listTree(path: path))
 }
 
-func exportFile(
+// Write a file with Save Panel
+func writeFile(
     content: Data,
     defaultFileName: String,
     allowedType: Array<UTType>,
