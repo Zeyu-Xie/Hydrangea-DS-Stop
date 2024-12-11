@@ -28,11 +28,6 @@ struct ContentView: View {
             print("App Started")
         }
         .onAppear() {
-            restartFinder()
         }
     }
-}
-
-#Preview {
-    ContentView()
 }

@@ -65,10 +65,7 @@ struct DSStoreManager: View {
                     }.padding()
                 }
             }.frame(maxWidth: .infinity)
-                
         }
     }
-    
-    
 }
 
