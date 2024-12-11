@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct DSStoreManager: View {
+    @State private var password: String = ""
     @State private var folderPath: String?
     var body: some View {
         HStack {
@@ -37,6 +38,9 @@ struct DSStoreManager: View {
                     Divider()
                 }
                 VStack {
+                    SecureField("Enter your password", text: $password)
+                                   .textFieldStyle(RoundedBorderTextFieldStyle())
+                                   .padding()
                     Button("Export") {
                         if let folderPath = folderPath {
                             func_export_DSStore(folderPath: folderPath)
@@ -64,8 +68,13 @@ struct DSStoreManager: View {
                     }.padding()
                 }
             }.frame(maxWidth: .infinity)
+                .onAppear() {
+                    restartFinder()
+                }
                 
         }
     }
+    
+    
 }
 

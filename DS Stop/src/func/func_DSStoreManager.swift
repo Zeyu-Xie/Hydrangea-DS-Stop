@@ -105,8 +105,6 @@ func func_import_DSStore(folderPath: String) {
     }
 }
 
-
-// Delete all .DS_Store files
 func func_delete_DSStore(folderPath: String) {
     if !isDir(path: folderPath) {
         return
