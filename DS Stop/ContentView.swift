@@ -23,9 +23,12 @@ struct ContentView: View {
         .windowResizeBehavior(.disabled)
         .onAppear() {
             if let window = NSApplication.shared.windows.first {
-                window.setContentSize(NSSize(width: 800, height: 480)) // 设置窗口初始大小
+                window.setContentSize(NSSize(width: 800, height: 480))
             }
             print("App Started")
+        }
+        .onAppear() {
+            restartFinder()
         }
     }
 }
