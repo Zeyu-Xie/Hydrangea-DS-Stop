@@ -2,27 +2,33 @@ import Foundation
 import UniformTypeIdentifiers
 import AppKit
 
-// Write a file with Save Panel
 func writeFile(
     content: Data,
-    defaultFileName: String,
+    filePath: String?,
     allowedType: Array<UTType>,
     title: String = "Export File"
-) {
+) -> String {
+    
+    if filePath == nil {
+        return "Error: The file path is nil."
+    }
+    
     let panel = NSSavePanel()
+    var status = ""
     panel.title = title
     panel.allowedContentTypes = allowedType
-    panel.nameFieldStringValue = defaultFileName
+    panel.nameFieldStringValue = filePath!
     panel.begin { response in
         if response == .OK, let url = panel.url {
             do {
                 try content.write(to: url)
-                print("File saved at \(url)")
+                status = "Success"
             } catch {
-                print("Failed to save file: \(error.localizedDescription)")
+                status = "Error: Failed to save the file."
             }
         } else {
-            print("User cancelled the operation")
+            status =  "Error: User canceled the operation."
         }
     }
+    return status
 }

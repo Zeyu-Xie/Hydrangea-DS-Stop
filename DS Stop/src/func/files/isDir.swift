@@ -1,8 +1,13 @@
 import Foundation
 
-// If the path represents a folder
-func isDir(path: String) -> Bool {
+func isDir(path: String?) -> Bool {
+    if path == nil {
+        return false
+    }
     var isDirectory: ObjCBool = false
     return FileManager.default
-        .fileExists(atPath: path, isDirectory: &isDirectory) && isDirectory.boolValue
+        .fileExists(
+            atPath: path!,
+            isDirectory: &isDirectory
+        ) && isDirectory.boolValue
 }

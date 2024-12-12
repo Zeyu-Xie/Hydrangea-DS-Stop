@@ -1,13 +1,13 @@
 import AppKit
 
-func selectFilePath() -> String? {
+func selectFilePath() -> (String, String) {
     let openPanel = NSOpenPanel()
     openPanel.title = "Select File"
     openPanel.canChooseFiles = true
     openPanel.canChooseDirectories = false
     openPanel.allowsMultipleSelection = false
     if openPanel.runModal() == .OK, let selectedURL = openPanel.url {
-        return selectedURL.path
+        return ("Success", selectedURL.path)
     }
-    return nil
+    return ("Error: Failed to select a file path.", "")
 }

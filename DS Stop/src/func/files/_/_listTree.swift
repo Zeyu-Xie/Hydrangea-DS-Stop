@@ -1,22 +1,27 @@
 import Foundation
 
-func _listTree(path: String) -> Dictionary<String, Any> {
+func _listTree(path: String?) -> (String, Dictionary<String, Any>) {
+    
+    if path == nil {
+        return ("Error: The path is nil.", [:])
+    }
+    
     var output: Dictionary<String, Any> = [:]
     let fileManager = FileManager.default
-    let directoryURL = URL(fileURLWithPath: path)
+    let directoryURL = URL(fileURLWithPath: path!)
     
     do {
-        let items = try fileManager.contentsOfDirectory(atPath: path)
+        let items = try fileManager.contentsOfDirectory(atPath: path!)
         for item in items {
             let fullPath = directoryURL.appendingPathComponent(item).path
             if isDir(path: fullPath) {
                 output[item] = _listTree(path: fullPath)
             } else {
-                output[item] = "File" // 如果是文件，标记为文件
+                output[item] = "File"
             }
         }
     } catch {
-        print("Error reading directory: \(error)")
+        return ("Error: Failed to read the directory \(directoryURL).", [:])
     }
-    return output
+    return ("Success", output)
 }

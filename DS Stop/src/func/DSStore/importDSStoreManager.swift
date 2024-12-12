@@ -1,12 +1,16 @@
 import Foundation
 import SwiftUI
 
-// Import the binary file to recover .DS_Store
-// Return the lists of paths of the changed .DS_Store files
-func import_DSStore(folderPath: String) -> Array<String> {
-    if !isDir(path: folderPath) {
-        return []
+func import_DSStore(folderPath: String?) -> (String, Array<String>) {
+    
+    if folderPath == nil {
+        return ("Error: The folder path is nil.", [])
     }
+    
+    if !isDir(path: folderPath!) {
+        return ("Error: The path does not correspond to a folder.", [])
+    }
+    
     var binPath: String = ""
     let openPanel = NSOpenPanel()
     openPanel.title = "Select Binary File"
@@ -17,8 +21,7 @@ func import_DSStore(folderPath: String) -> Array<String> {
         binPath = selectedURL.path
     }
     else {
-        print("User cancelled the operation")
-        return []
+        return ("Error: User canceled the operation", [])
     }
     let url = URL(fileURLWithPath: binPath)
     do {
@@ -28,19 +31,18 @@ func import_DSStore(folderPath: String) -> Array<String> {
             from: data
         )
         for (relativePath, fileContent) in decodedFile {
-            let filePath = folderPath + relativePath
+            let filePath = folderPath! + relativePath
             let fileURL = URL(fileURLWithPath: filePath)
             do {
                 try fileContent.write(to: fileURL)
-                print("File saved at \(fileURL)")
             } catch {
-                print("Failed to save file at \(fileURL): \(error)")
+                return ("Error: Failed to save file at \(fileURL).", [])
             }
         }
-        return Array(decodedFile.keys).map { folderPath + $0 }
+        let output = Array(decodedFile.keys).map { folderPath! + $0 }
+        return ("Success", output)
     } catch {
-        print("Failed to decode JSON: \(error)")
-        return []
+        return ("Error: Failed to decode the JSON file.", [])
     }
 }
 
