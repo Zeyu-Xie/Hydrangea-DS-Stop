@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		93E6770D2D0B628F003B7A30 /* PythonKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93E6770C2D0B628F003B7A30 /* PythonKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		93C4092A2D064F5400A5B4D5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,41 +28,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		93C409182D064F5300A5B4D5 /* DS Stop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DS Stop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		93C409292D064F5400A5B4D5 /* DS StopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DS StopTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		93C409332D064F5400A5B4D5 /* DS StopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DS StopUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93E677092D0B602B003B7A30 /* DS StopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "DS StopTests.xctest"; path = "/Users/zeyuxie/Documents/GitHub/Hydrangea-DS-Stop/build/Debug/DS Stop.app/Contents/PlugIns/DS StopTests.xctest"; sourceTree = "<absolute>"; };
+		93E6770A2D0B602B003B7A30 /* DS StopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "DS StopUITests.xctest"; path = "/Users/zeyuxie/Documents/GitHub/Hydrangea-DS-Stop/build/Debug/DS StopUITests-Runner.app/Contents/PlugIns/DS StopUITests.xctest"; sourceTree = "<absolute>"; };
+		93E6770E2D0B67FA003B7A30 /* DS Stop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DS Stop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		93923A1A2D0B4D7200A531B5 /* Exceptions for "python script" folder in "DS Stop" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				extractDSStore.py,
-			);
-			target = 93C409172D064F5300A5B4D5 /* DS Stop */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		93923A1B2D0B4D7200A531B5 /* Exceptions for "python script" folder in "Compile Sources" phase from "DS Stop" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 93C409142D064F5300A5B4D5 /* Sources */;
-			membershipExceptions = (
-				extractDSStore.py,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		93923A152D0B4D1C00A531B5 /* python script */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				93923A1A2D0B4D7200A531B5 /* Exceptions for "python script" folder in "DS Stop" target */,
-				93923A1B2D0B4D7200A531B5 /* Exceptions for "python script" folder in "Compile Sources" phase from "DS Stop" target */,
-			);
-			path = "python script";
-			sourceTree = "<group>";
-		};
 		93C4091A2D064F5300A5B4D5 /* DS Stop */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "DS Stop";
@@ -81,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93E6770D2D0B628F003B7A30 /* PythonKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,19 +83,8 @@
 				93C4091A2D064F5300A5B4D5 /* DS Stop */,
 				93C4092C2D064F5400A5B4D5 /* DS StopTests */,
 				93C409362D064F5400A5B4D5 /* DS StopUITests */,
-				93C409192D064F5300A5B4D5 /* Products */,
-				93923A152D0B4D1C00A531B5 /* python script */,
+				93E6770E2D0B67FA003B7A30 /* DS Stop.app */,
 			);
-			sourceTree = "<group>";
-		};
-		93C409192D064F5300A5B4D5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				93C409182D064F5300A5B4D5 /* DS Stop.app */,
-				93C409292D064F5400A5B4D5 /* DS StopTests.xctest */,
-				93C409332D064F5400A5B4D5 /* DS StopUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,14 +103,14 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				93923A152D0B4D1C00A531B5 /* python script */,
 				93C4091A2D064F5300A5B4D5 /* DS Stop */,
 			);
 			name = "DS Stop";
 			packageProductDependencies = (
+				93E6770C2D0B628F003B7A30 /* PythonKit */,
 			);
 			productName = "DS Stop";
-			productReference = 93C409182D064F5300A5B4D5 /* DS Stop.app */;
+			productReference = 93E6770E2D0B67FA003B7A30 /* DS Stop.app */;
 			productType = "com.apple.product-type.application";
 		};
 		93C409282D064F5400A5B4D5 /* DS StopTests */ = {
@@ -168,7 +133,7 @@
 			packageProductDependencies = (
 			);
 			productName = "DS StopTests";
-			productReference = 93C409292D064F5400A5B4D5 /* DS StopTests.xctest */;
+			productReference = 93E677092D0B602B003B7A30 /* DS StopTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		93C409322D064F5400A5B4D5 /* DS StopUITests */ = {
@@ -191,7 +156,7 @@
 			packageProductDependencies = (
 			);
 			productName = "DS StopUITests";
-			productReference = 93C409332D064F5400A5B4D5 /* DS StopUITests.xctest */;
+			productReference = 93E6770A2D0B602B003B7A30 /* DS StopUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -202,7 +167,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1610;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					93C409172D064F5300A5B4D5 = {
 						CreatedOnToolsVersion = 16.1;
@@ -226,8 +191,11 @@
 			);
 			mainGroup = 93C4090F2D064F5300A5B4D5;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				93E6770B2D0B628F003B7A30 /* XCRemoteSwiftPackageReference "PythonKit" */,
+			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 93C409192D064F5300A5B4D5 /* Products */;
+			productRefGroup = 93C4090F2D064F5300A5B4D5;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -334,6 +302,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -397,6 +366,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -423,11 +393,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "DS Stop/DS_Stop.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DS Stop/Preview Content\"";
 				DEVELOPMENT_TEAM = SAR93BUHA2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -452,11 +422,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "DS Stop/DS_Stop.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DS Stop/Preview Content\"";
 				DEVELOPMENT_TEAM = SAR93BUHA2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -482,6 +452,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = SAR93BUHA2;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.1;
@@ -500,6 +471,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = SAR93BUHA2;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.1;
@@ -517,6 +489,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = SAR93BUHA2;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -533,6 +506,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = SAR93BUHA2;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -584,6 +558,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		93E6770B2D0B628F003B7A30 /* XCRemoteSwiftPackageReference "PythonKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pvieito/PythonKit";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		93E6770C2D0B628F003B7A30 /* PythonKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93E6770B2D0B628F003B7A30 /* XCRemoteSwiftPackageReference "PythonKit" */;
+			productName = PythonKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 93C409102D064F5300A5B4D5 /* Project object */;
 }

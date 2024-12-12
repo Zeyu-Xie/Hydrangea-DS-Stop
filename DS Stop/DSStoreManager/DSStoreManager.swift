@@ -1,11 +1,11 @@
 import SwiftUI
 import Foundation
+import PythonKit
 
 struct DSStoreManager: View {
     
     @State var folderPath: String?
     @State private var folderTree: String?
-    
     @State private var dsStoreContent: String?
     
     var body: some View {
@@ -49,7 +49,9 @@ struct DSStoreManager: View {
                 
                 VStack {
                         
-                    if let dsStoreContent = dsStoreContent {
+                    if let dsStoreContent = decodeDSStore(
+                        DSFilePath: "/Users/zeyuxie/Documents/.DS_Store"
+                    ) {
                         Text(dsStoreContent)
                     }
 
@@ -77,37 +79,10 @@ struct DSStoreManager: View {
             }
             .padding()
         }
-    }
-    
-    func executeBinary(
-        atPath path: String,
-        withArguments arguments: [String] = []
-    ) {
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "./extractDSStore")
-        process.arguments = arguments
-        
-        
-        let outputPipe = Pipe()
-        process.standardOutput = outputPipe
-        process.standardError = outputPipe
-        
-        do {
-            try process.run()  // 启动进程
-            process.waitUntilExit()  // 等待进程完成
-            
-            // 获取输出
-            let data = outputPipe.fileHandleForReading.readDataToEndOfFile()
-            dsStoreContent = String(data: data, encoding: .utf8)
-            
-            // 检查退出状态
-            if process.terminationStatus == 0 {
-                print("Process finished successfully.")
-            } else {
-                print("Process exited with code \(process.terminationStatus).")
-            }
-        } catch {
-            print("Failed to run process: \(error)")
+        .onAppear() {
+            print(
+                decodeDSStore(DSFilePath: "/Users/zeyuxie/Documents/.DS_Store")!
+            )
         }
     }
 }
