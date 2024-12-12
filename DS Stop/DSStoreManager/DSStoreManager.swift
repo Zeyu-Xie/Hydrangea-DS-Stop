@@ -6,92 +6,94 @@ struct DSStoreManager: View {
     @State private var folderTree: String?
     
     var body: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading) {
-                Button(action: {
-                    folderPath = selectFolderPath()
-                    if let path = folderPath {
-                        folderTree = StringifiedTree(path: path)
-                    }
-                }) {
-                    Label("Select Folder", systemImage: "folder")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
-                .padding([.top, .bottom])
-                  
-                Text("Folder Path")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                TextField(
-                    "Folder Path",
-                    text: .constant(folderPath ?? "No folder chosen")
-                )
-                .font(.system(.body, design: .monospaced))
-                .lineLimit(1)
-                .disabled(true)
-                .textFieldStyle(.roundedBorder)
-                
-                Text("Folder Tree")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                FileBrowserView(rootPath: $folderPath)
-                Spacer()
-            }
-            .padding()
-            .frame(maxWidth: .infinity)
-                
-            VStack(spacing: 16) {
-                    
-                    
-                GroupBox(label: Label("Actions", systemImage: "gearshape")) {
-                    VStack(spacing: 12) {
-                        Button(action: {
-                            let _folderPath = folderPath
-                            folderPath = nil
-                            folderPath = _folderPath
-                        }) {
-                            Label(
-                                "Refresh Tree",
-                                systemImage: "arrow.clockwise"
-                            )
+        VStack {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading) {
+                    Button(action: {
+                        folderPath = selectFolderPath()
+                        if let path = folderPath {
+                            folderTree = StringifiedTree(path: path)
                         }
-                        .buttonStyle(.bordered)
-                            
-                        DSStoreExportButton(folderPath: $folderPath)
-                            
-                        DSStoreImportButton(folderPath: $folderPath)
-                            
-                        DSStoreDeleteButton(folderPath: $folderPath)
+                    }) {
+                        Label("Select Folder", systemImage: "folder")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
                     }
+                    .buttonStyle(.borderedProminent)
+                    .padding([.top, .bottom])
+                      
+                    Text("Folder Path")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    TextField(
+                        "Folder Path",
+                        text: .constant(folderPath ?? "No folder chosen")
+                    )
+                    .font(.system(.body, design: .monospaced))
+                    .lineLimit(1)
+                    .disabled(true)
+                    .textFieldStyle(.roundedBorder)
+                    
+                    Text("Folder Tree")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    FileBrowserView(rootPath: $folderPath)
                 }
+                .frame(maxWidth: .infinity)
+                .padding()
+                
+                Divider()
+                
+                VStack {
+                        
+                        
+                    GroupBox(
+                        label: Label("Actions", systemImage: "gearshape")
+                    ) {
+                        VStack {
+                            
+                            
+                            Divider()
+                                .padding(.horizontal)
+
+                            HStack {
+                                
+                            }
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                    }
+
+                    
+                    
+                    
+                    
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding()
             }
-            .frame(maxWidth: .infinity, alignment: .center)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+            Divider()
+            
+            HStack {
+                Button(action: {
+                    let _folderPath = folderPath
+                    folderPath = nil
+                    folderPath = _folderPath
+                }) {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                }
+                //                .buttonStyle(.borderedProminent)
+                DSStoreExportButton(folderPath: $folderPath)
+                DSStoreImportButton(folderPath: $folderPath)
+                Spacer()
+                DSStoreDeleteButton(folderPath: $folderPath)
+            }
             .padding()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 struct _FileNode: Identifiable {
     let id = UUID()
@@ -155,25 +157,6 @@ struct FileBrowserView: View {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 struct DSStoreExportButton: View {
     
     @Binding var folderPath: String?
@@ -182,12 +165,19 @@ struct DSStoreExportButton: View {
     @State private var fileList: Array<String> = []
     
     var body: some View {
-        Button("Export") {
+        Button(action: {
             if let folderPath = folderPath {
                 fileList = export_DSStore(folderPath: folderPath)
             }
             isPresented = true
+        }) {
+            Label (
+                "Export",
+                systemImage: "square.and.arrow.up"
+            )
+            
         }
+        //        .buttonStyle(.borderedProminent)
         .alert(isPresented: $isPresented) {
             if folderPath == nil {
                 return Alert(
@@ -219,12 +209,18 @@ struct DSStoreImportButton: View {
     
     var body: some View {
         
-        Button("Import") {
+        Button(action: {
             if let folderPath = folderPath {
                 fileList = import_DSStore(folderPath: folderPath)
             }
             isPresented = true
+        }) {
+            Label(
+                "Import",
+                systemImage: "square.and.arrow.down"
+            )
         }
+        //        .buttonStyle(.borderedProminent)
         .alert(isPresented: $isPresented) {
             if folderPath == nil {
                 return Alert(
@@ -248,7 +244,6 @@ struct DSStoreImportButton: View {
     }
 }
 
-
 struct DSStoreDeleteButton: View {
     
     @Binding var folderPath: String?
@@ -258,14 +253,21 @@ struct DSStoreDeleteButton: View {
     @State private var failList: Array<String> = []
     
     var body: some View {
-        Button("Delete") {
+        Button(action: {
             if let folderPath = folderPath {
                 (succList, failList) = delete_DSStore(
                     folderPath: folderPath
                 )
             }
             isPresented = true
+        }) {
+            Label(
+                "Delete",
+                systemImage: "xmark.bin"
+            )
         }
+        .buttonStyle(.borderedProminent)
+        .tint(.red)
         .alert(isPresented: $isPresented) {
             if folderPath == nil {
                 return Alert(

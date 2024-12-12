@@ -1,5 +1,3 @@
-// Wri
-
 import SwiftUI
 
 struct ContentView: View {
@@ -9,9 +7,9 @@ struct ContentView: View {
     var body: some View {
         TabView {
             DSStoreManager()
-            .tabItem {
-                Label(".DS_Store", systemImage: "globe")
-            }
+                .tabItem {
+                    Label(".DS_Store", systemImage: "globe")
+                }
         }
     }
 }
