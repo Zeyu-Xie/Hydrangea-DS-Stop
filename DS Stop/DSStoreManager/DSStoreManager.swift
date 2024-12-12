@@ -32,6 +32,7 @@ struct DSStoreManager: View {
                 .lineLimit(1)
                 .disabled(true)
                 .textFieldStyle(.roundedBorder)
+                
                 Text("Folder Tree")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
@@ -41,7 +42,6 @@ struct DSStoreManager: View {
             .padding()
             .frame(maxWidth: .infinity)
                 
-            // 右侧 - 操作按钮部分
             VStack(spacing: 16) {
                     
                     
@@ -93,15 +93,14 @@ struct DSStoreManager: View {
 
 
 
-struct FileNode: Identifiable {
+struct _FileNode: Identifiable {
     let id = UUID()
     let name: String
     let path: String
     var isDirectory: Bool
-    var children: [FileNode]?
+    var children: [_FileNode]?
 }
-
-func loadFileSystem(at path: String) -> [FileNode] {
+func _loadFileSystem(at path: String) -> [_FileNode] {
     let fileManager = FileManager.default
     guard let contents = try? fileManager.contentsOfDirectory(atPath: path) else {
         return []
@@ -110,19 +109,20 @@ func loadFileSystem(at path: String) -> [FileNode] {
         let fullPath = (path as NSString).appendingPathComponent(name)
         var isDirectory: ObjCBool = false
         fileManager.fileExists(atPath: fullPath, isDirectory: &isDirectory)
-        return FileNode(
+        return _FileNode(
             name: name,
             path: fullPath,
             isDirectory: isDirectory.boolValue,
-            children: isDirectory.boolValue ? loadFileSystem(at: fullPath) : nil
+            children: isDirectory.boolValue ? _loadFileSystem(
+                at: fullPath
+            ) : nil
         )
     }
 }
-
 struct FileBrowserView: View {
     
     @Binding var rootPath: String?
-    @State private var fileSystem: [FileNode] = []
+    @State private var fileSystem: [_FileNode] = []
     
     var body: some View {
         List {
@@ -130,13 +130,13 @@ struct FileBrowserView: View {
                 Text("No folder chosen").foregroundStyle(.gray)
             }
             else {
-                if loadFileSystem(at: rootPath!).isEmpty {
+                if _loadFileSystem(at: rootPath!).isEmpty {
                     Text("Loading...")
                         .foregroundColor(.gray)
                 }
                 else {
                     OutlineGroup(
-                        loadFileSystem(at: rootPath!),
+                        _loadFileSystem(at: rootPath!),
                         children: \.children
                     ) { node in
                         HStack {
