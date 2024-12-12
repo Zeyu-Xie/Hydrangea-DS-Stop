@@ -1,9 +1,12 @@
 import SwiftUI
+import Foundation
 
 struct DSStoreManager: View {
     
     @State var folderPath: String?
     @State private var folderTree: String?
+    
+    @State var pythonScriptOutput: String?
     
     var body: some View {
         VStack {
@@ -11,8 +14,8 @@ struct DSStoreManager: View {
                 VStack(alignment: .leading) {
                     Button(action: {
                         folderPath = selectFolderPath()
-                        if let path = folderPath {
-                            folderTree = StringifiedTree(path: path)
+                        if let folderPath = folderPath {
+                            folderTree = StringifiedTree(path: folderPath)
                         }
                     }) {
                         Label("Select Folder", systemImage: "folder")
@@ -46,6 +49,9 @@ struct DSStoreManager: View {
                 
                 VStack {
                         
+                    if let pythonScriptOutput = pythonScriptOutput {
+                        Text(pythonScriptOutput)
+                    }
 
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -72,6 +78,40 @@ struct DSStoreManager: View {
             .padding()
         }
     }
+    
+    func executeBinary(
+        atPath path: String,
+        withArguments arguments: [String] = []
+    ) {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: path) // 设置二进制程序路径
+        process.arguments = arguments                     // 传递参数
+        
+        // 捕获输出
+        let outputPipe = Pipe()
+        process.standardOutput = outputPipe
+        process.standardError = outputPipe
+        
+        do {
+            try process.run()  // 启动进程
+            process.waitUntilExit()  // 等待进程完成
+            
+            // 获取输出
+            let data = outputPipe.fileHandleForReading.readDataToEndOfFile()
+            pythonScriptOutput = String(data: data, encoding: .utf8)
+            
+            // 检查退出状态
+            if process.terminationStatus == 0 {
+                print("Process finished successfully.")
+            } else {
+                print("Process exited with code \(process.terminationStatus).")
+            }
+        } catch {
+            print("Failed to run process: \(error)")
+        }
+    }
+
+    
 }
 
 struct _FileNode: Identifiable {

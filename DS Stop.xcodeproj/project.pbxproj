@@ -29,7 +29,36 @@
 		93C409332D064F5400A5B4D5 /* DS StopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DS StopUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		93923A1A2D0B4D7200A531B5 /* Exceptions for "python script" folder in "DS Stop" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				extractDSStore.py,
+			);
+			target = 93C409172D064F5300A5B4D5 /* DS Stop */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		93923A1B2D0B4D7200A531B5 /* Exceptions for "python script" folder in "Compile Sources" phase from "DS Stop" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 93C409142D064F5300A5B4D5 /* Sources */;
+			membershipExceptions = (
+				extractDSStore.py,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		93923A152D0B4D1C00A531B5 /* python script */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				93923A1A2D0B4D7200A531B5 /* Exceptions for "python script" folder in "DS Stop" target */,
+				93923A1B2D0B4D7200A531B5 /* Exceptions for "python script" folder in "Compile Sources" phase from "DS Stop" target */,
+			);
+			path = "python script";
+			sourceTree = "<group>";
+		};
 		93C4091A2D064F5300A5B4D5 /* DS Stop */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "DS Stop";
@@ -79,6 +108,7 @@
 				93C4092C2D064F5400A5B4D5 /* DS StopTests */,
 				93C409362D064F5400A5B4D5 /* DS StopUITests */,
 				93C409192D064F5300A5B4D5 /* Products */,
+				93923A152D0B4D1C00A531B5 /* python script */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,6 +138,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				93923A152D0B4D1C00A531B5 /* python script */,
 				93C4091A2D064F5300A5B4D5 /* DS Stop */,
 			);
 			name = "DS Stop";
