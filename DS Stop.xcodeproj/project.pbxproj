@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		93E6770D2D0B628F003B7A30 /* PythonKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93E6770C2D0B628F003B7A30 /* PythonKit */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		93C4092A2D064F5400A5B4D5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -56,7 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93E6770D2D0B628F003B7A30 /* PythonKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +104,6 @@
 			);
 			name = "DS Stop";
 			packageProductDependencies = (
-				93E6770C2D0B628F003B7A30 /* PythonKit */,
 			);
 			productName = "DS Stop";
 			productReference = 93E6770E2D0B67FA003B7A30 /* DS Stop.app */;
@@ -194,7 +188,6 @@
 			mainGroup = 93C4090F2D064F5300A5B4D5;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				93E6770B2D0B628F003B7A30 /* XCRemoteSwiftPackageReference "PythonKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 93C4090F2D064F5300A5B4D5;
@@ -560,25 +553,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		93E6770B2D0B628F003B7A30 /* XCRemoteSwiftPackageReference "PythonKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pvieito/PythonKit";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		93E6770C2D0B628F003B7A30 /* PythonKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 93E6770B2D0B628F003B7A30 /* XCRemoteSwiftPackageReference "PythonKit" */;
-			productName = PythonKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 93C409102D064F5300A5B4D5 /* Project object */;
 }

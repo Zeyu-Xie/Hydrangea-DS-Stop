@@ -32,11 +32,15 @@ func export_DSStore(folderPath: String?) -> (String, Array<String>) {
     
     do {
         let content = try JSONEncoder().encode(extractedFile)
-        writeFile(
+        let status = writeFile(
             content: content,
-            defaultFileName: exportedFileName,
-            allowedType: [.data]
+            filePath: exportedFileName,
+            allowedType: [.data],
+            title: "Export .DS_Store Data"
         )
+        if status != "Success" {
+            return (status, [])
+        }
         let output = fileList.map { folderPath! + $0 }
         return ("Success", output)
     } catch {

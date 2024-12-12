@@ -7,11 +7,11 @@ struct _DSStoreInfoPanel: View {
     var body: some View {
         VStack {
                 
-            if let dsStoreContent = decodeDSStore(
-                DSFilePath: "/Users/zeyuxie/Documents/.DS_Store"
-            ) {
-                Text(dsStoreContent)
-            }
+//            if let dsStoreContent = decodeDSStore(
+//                DSFilePath: "/Users/zeyuxie/Documents/.DS_Store"
+//            ) {
+//                Text(dsStoreContent)
+//            }
 
         }
     }

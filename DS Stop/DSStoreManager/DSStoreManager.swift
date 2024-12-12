@@ -3,22 +3,25 @@ import Foundation
 
 struct DSStoreManager: View {
     
-    @State var folderPath: String?
-    
+    @State private var folderPath: String?
+        
     var body: some View {
         VStack {
             HStack(alignment: .top) {
                 VStack {
-                    _DSStoreFolderSelectPanel(folderPath: $folderPath)
-                    _DSStoreFolderTreePanel(folderPath: $folderPath)
+                    _DSStoreFolderSelectPanel(folderPath: $folderPath).padding()
+                    Divider()
+                    _DSStoreFolderTreePanel(folderPath: $folderPath).padding()
                 }
                 .frame(maxWidth: .infinity)
                 Divider()
-                _DSStoreInfoPanel(folderPath: $folderPath).padding()
+                _DSStoreInfoPanel(folderPath: $folderPath)
+                    .frame(maxWidth: .infinity)
+                    .padding()
             }
             .frame(maxHeight: .infinity)
             Divider()
-            _DSStoreButtonPanel(folderPath: $folderPath)
+            _DSStoreButtonPanel(folderPath: $folderPath).padding()
         }
     }
 }

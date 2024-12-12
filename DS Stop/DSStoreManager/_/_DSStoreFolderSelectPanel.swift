@@ -4,10 +4,16 @@ struct _DSStoreFolderSelectPanel: View {
     
     @Binding var folderPath: String?
     
+    @State private var isPresented: Bool = false
+    @State private var status: String = ""
+    
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Button(action: {
-                folderPath = selectFolderPath()
+                (status, folderPath) = selectFolderPath()
+                if status != "Success" {
+                    isPresented = true
+                }
             }) {
                 Label("Select Folder", systemImage: "folder")
                     .font(.headline)
@@ -15,6 +21,13 @@ struct _DSStoreFolderSelectPanel: View {
             }
             .buttonStyle(.borderedProminent)
             .padding([.top, .bottom])
+            .alert(isPresented: $isPresented) {
+                return Alert(
+                    title: Text("Path not Selected"),
+                    message: Text(status),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
               
             Text("Folder Path")
                 .font(.subheadline)
@@ -28,6 +41,5 @@ struct _DSStoreFolderSelectPanel: View {
             .disabled(true)
             .textFieldStyle(.roundedBorder)
         }
-        .padding()
     }
 }

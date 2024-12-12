@@ -5,13 +5,12 @@ struct _DSStoreFolderTreePanel: View {
     @Binding var folderPath: String?
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Folder Tree")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
             FileBrowserView(rootPath: $folderPath)
         }
-        .padding()
     }
 }
 

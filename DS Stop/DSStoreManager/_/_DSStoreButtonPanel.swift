@@ -8,6 +8,7 @@ struct _DSStoreButtonPanel: View {
             _DSStoreExportButton(folderPath: $folderPath)
             _DSStoreImportButton(folderPath: $folderPath)
             Spacer()
+            _DSStoreQuitButton()
             _DSStoreDeleteButton(folderPath: $folderPath)
         }
     }
@@ -21,7 +22,10 @@ struct _DSStoreRefreshButton: View{
     
     var body: some View {
         Button(action: {
-            status = refreshDSStore(folderPath: &folderPath)
+            let originalValue = folderPath
+            folderPath = nil
+            folderPath = originalValue
+            status = "Success"
             isPresented = true
         }) {
             Label("Refresh", systemImage: "arrow.clockwise")
@@ -58,15 +62,13 @@ struct _DSStoreExportButton: View {
     
     @Binding var folderPath: String?
     
-    @State private var isPresented: Bool = false
     @State private var fileList: Array<String> = []
     
     var body: some View {
         Button(action: {
             if let folderPath = folderPath {
-                fileList = export_DSStore(folderPath: folderPath)
+                (_, fileList) = export_DSStore(folderPath: folderPath)
             }
-            isPresented = true
         }) {
             Label (
                 "Export",
@@ -82,14 +84,12 @@ struct _DSStoreImportButton: View {
     @Binding var folderPath: String?
     
     @State private var isPresented: Bool = false
+    @State private var status: String = ""
     @State private var fileList: Array<String> = []
-    
     var body: some View {
         
         Button(action: {
-            if let folderPath = folderPath {
-                fileList = import_DSStore(folderPath: folderPath)
-            }
+            (status, fileList) = import_DSStore(folderPath: folderPath)
             isPresented = true
         }) {
             Label(
@@ -98,20 +98,16 @@ struct _DSStoreImportButton: View {
             )
         }
         .alert(isPresented: $isPresented) {
-            if folderPath == nil {
+            if status != "Success" {
                 return Alert(
-                    title: Text("Error"),
-                    message: Text("Folder path not loaded"),
+                    title: Text("Import Failed"),
+                    message: Text(status),
                     dismissButton: .default(Text("OK"))
                 )
             }
             else {
                 return Alert(
-                    title: Text("Success"),
-                    message: Text(
-                        "Successfully write to these files:\n" + fileList
-                            .joined(separator: "\n")
-                    ),
+                    title: Text("Import Successful"),
                     dismissButton: .default(Text("OK"))
                 )
             }
@@ -120,21 +116,42 @@ struct _DSStoreImportButton: View {
     }
 }
 
+struct _DSStoreQuitButton: View {
+    
+    @State private var isPresented: Bool = false
+    
+    var body: some View {
+        Button(action: {
+            isPresented = true
+        }) {
+            Label("Quit", systemImage: "xmark")
+        }
+        .alert(isPresented: $isPresented) {
+            return Alert(
+                title: Text("Quit DS Stop"),
+                message: Text("Do you really want to quit DS Stop?"),
+                primaryButton: .destructive(Text("Quit"), action: {
+                    NSApplication.shared.terminate(self)
+                }),
+                secondaryButton: .cancel()
+            )
+        }
+    }
+}
+
 struct _DSStoreDeleteButton: View {
     
     @Binding var folderPath: String?
     
     @State private var isPresented: Bool = false
-    @State private var succList: Array<String> = []
-    @State private var failList: Array<String> = []
+    @State private var status: String = ""
+    @State private var fileList: Array<String> = []
     
     var body: some View {
         Button(action: {
-            if let folderPath = folderPath {
-                (succList, failList) = delete_DSStore(
-                    folderPath: folderPath
-                )
-            }
+            (status, fileList) = delete_DSStore(
+                folderPath: folderPath
+            )
             isPresented = true
         }) {
             Label(
@@ -145,31 +162,27 @@ struct _DSStoreDeleteButton: View {
         .buttonStyle(.borderedProminent)
         .tint(.red)
         .alert(isPresented: $isPresented) {
-            if folderPath == nil {
+            if status != "Success" {
                 return Alert(
-                    title: Text("Error"),
-                    message: Text("Folder path not loaded"),
+                    title: Text("Delete Failed"),
+                    message: Text(status),
                     dismissButton: .default(Text("OK"))
                 )
             }
             else {
                 
                 var alertMessage: String = ""
-
-                if succList.count > 0 {
-                    alertMessage += "Successfullt deleted the following files:\n" + succList
-                        .joined(separator: "\n")
+                
+                if fileList.isEmpty {
+                    alertMessage = "No files deleted."
                 }
-                if failList.count > 0 {
-                    if succList.count > 0 {
-                        alertMessage += "\n"
-                    }
-                    alertMessage += "Failed to delete the following files:\n" + failList
+                else {
+                    alertMessage = "Successfullt deleted the following files:\n" + fileList
                         .joined(separator: "\n")
                 }
                 
                 return Alert(
-                    title: Text("Delete Finished"),
+                    title: Text("Delete Successful"),
                     message: Text(alertMessage),
                     dismissButton: .default(Text("OK"))
                 )
