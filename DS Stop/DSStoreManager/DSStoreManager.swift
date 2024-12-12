@@ -6,7 +6,7 @@ struct DSStoreManager: View {
     @State var folderPath: String?
     @State private var folderTree: String?
     
-    @State var pythonScriptOutput: String?
+    @State private var dsStoreContent: String?
     
     var body: some View {
         VStack {
@@ -49,8 +49,8 @@ struct DSStoreManager: View {
                 
                 VStack {
                         
-                    if let pythonScriptOutput = pythonScriptOutput {
-                        Text(pythonScriptOutput)
+                    if let dsStoreContent = dsStoreContent {
+                        Text(dsStoreContent)
                     }
 
                 }
@@ -84,10 +84,10 @@ struct DSStoreManager: View {
         withArguments arguments: [String] = []
     ) {
         let process = Process()
-        process.executableURL = URL(fileURLWithPath: path) // 设置二进制程序路径
-        process.arguments = arguments                     // 传递参数
+        process.executableURL = URL(fileURLWithPath: "./extractDSStore")
+        process.arguments = arguments
         
-        // 捕获输出
+        
         let outputPipe = Pipe()
         process.standardOutput = outputPipe
         process.standardError = outputPipe
@@ -98,7 +98,7 @@ struct DSStoreManager: View {
             
             // 获取输出
             let data = outputPipe.fileHandleForReading.readDataToEndOfFile()
-            pythonScriptOutput = String(data: data, encoding: .utf8)
+            dsStoreContent = String(data: data, encoding: .utf8)
             
             // 检查退出状态
             if process.terminationStatus == 0 {
@@ -110,8 +110,6 @@ struct DSStoreManager: View {
             print("Failed to run process: \(error)")
         }
     }
-
-    
 }
 
 struct _FileNode: Identifiable {
