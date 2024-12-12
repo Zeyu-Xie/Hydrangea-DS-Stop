@@ -1,13 +1,19 @@
 import Foundation
 
-func _extractFile(rootPath: String, fileNames: Array<String>) -> Array<String> {
-    if !isDir(path: rootPath) {
-        return []
+func _extractFile(folderPath: String?, fileNames: Array<String>) -> (
+    String,
+    Array<String>
+) {
+    if folderPath == nil {
+        return ("Error: The folder path is nil.", [])
+    }
+    if !isDir(path: folderPath!) {
+        return ("Error: The path does not correspond to a file.", [])
     }
     let fileManager = FileManager.default
-    let directoryURL = URL(fileURLWithPath: rootPath)
+    let directoryURL = URL(fileURLWithPath: folderPath!)
     guard let enumerator = fileManager.enumerator(at: directoryURL, includingPropertiesForKeys: nil) else {
-        return []
+        return ("Error: Failed to generate an enumerator.", [])
     }
     var output: Array<String> = []
     for case let fileURL as URL in enumerator {
@@ -15,5 +21,5 @@ func _extractFile(rootPath: String, fileNames: Array<String>) -> Array<String> {
             output.append(fileURL.path)
         }
     }
-    return output
+    return ("Success", output)
 }

@@ -1,9 +1,14 @@
 import Foundation
 
-// Encode the extracted files to a single binary file
-func _treeEncodor(files: Array<String>, rootPath: String) -> [String: Data] {
-    if !isDir(path: rootPath) {
-        return [:]
+func _treeEncodor(files: Array<String>, folderPath: String?) -> (
+    String,
+    [String: Data]
+) {
+    if folderPath == nil {
+        return ("Error: The folder path is nil.", [:])
+    }
+    if !isDir(path: folderPath!) {
+        return ("Error: The path does not correspond to a file.", [:])
     }
     var output: [String: Data] = [:]
     for file in files {
@@ -14,14 +19,14 @@ func _treeEncodor(files: Array<String>, rootPath: String) -> [String: Data] {
             do {
                 let fileContent = try Data(contentsOf: url)
                 let relativePath = url.path.replacingOccurrences(
-                    of: rootPath,
+                    of: folderPath!,
                     with: ""
                 )
                 output[relativePath] = fileContent
             } catch {
-                print("Failed to read file at \(file): \(error)")
+                return ("Error: Failed to read file at \(file)", [:])
             }
         }
     }
-    return output
+    return ("Success", output)
 }

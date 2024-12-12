@@ -1,18 +1,18 @@
 import Foundation
 
-// Recursively delete .DS_Store
-// Return the lists of paths of successfully deleted files and failed ones.
-func delete_DSStore(folderPath: String) -> (Array<String>, Array<String>) {
-    if !isDir(path: folderPath) {
-        return ([], [])
+func delete_DSStore(folderPath: String?) -> (String, Array<String>) {
+    if folderPath == nil {
+        return ("Error: The folder path is nil.", [])
+    }
+    if !isDir(path: folderPath!) {
+        return ("Error: The path does not correspond to a folder.", [])
     }
     let fileManager = FileManager.default
-    let directoryURL = URL(fileURLWithPath: folderPath)
+    let directoryURL = URL(fileURLWithPath: folderPath!)
     guard let enumerator = fileManager.enumerator(at: directoryURL, includingPropertiesForKeys: nil) else {
-        return ([], [])
+        return ("Error: Failed to generate an enumerator.", [])
     }
-    var succList: Array<String> = []
-    var failList: Array<String> = []
+    var deletedFileList: Array<String> = []
     for case let fileURL as URL in enumerator {
         if fileURL.lastPathComponent == ".DS_Store" {
             do {
@@ -21,12 +21,11 @@ func delete_DSStore(folderPath: String) -> (Array<String>, Array<String>) {
                 }
                 try fileManager.removeItem(at: fileURL)
                 print("Deleted .DS_Store file at \(fileURL)")
-                succList.append(fileURL.path)
+                deletedFileList.append(fileURL.path)
             } catch {
-                print("Failed to delete file at \(fileURL): \(error)")
-                failList.append(fileURL.path)
+                return ("Erorr: Failed to delete file at \(fileURL)", [])
             }
         }
     }
-    return (succList, failList)
+    return ("Success", deletedFileList)
 }
