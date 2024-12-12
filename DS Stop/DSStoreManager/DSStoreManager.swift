@@ -46,28 +46,7 @@ struct DSStoreManager: View {
                 
                 VStack {
                         
-                        
-                    GroupBox(
-                        label: Label("Actions", systemImage: "gearshape")
-                    ) {
-                        VStack {
-                            
-                            
-                            Divider()
-                                .padding(.horizontal)
 
-                            HStack {
-                                
-                            }
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                    }
-
-                    
-                    
-                    
-                    
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding()
@@ -178,25 +157,6 @@ struct DSStoreExportButton: View {
             
         }
         //        .buttonStyle(.borderedProminent)
-        .alert(isPresented: $isPresented) {
-            if folderPath == nil {
-                return Alert(
-                    title: Text("Error"),
-                    message: Text("Folder Path Not Loaded"),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
-            else {
-                return Alert(
-                    title: Text("Success"),
-                    message: Text(
-                        "The following files are exported:\n" + fileList
-                            .joined(separator: "\n")
-                    ),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
-        }
     }
 }
 
