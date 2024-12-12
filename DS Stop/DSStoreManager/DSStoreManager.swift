@@ -2,65 +2,177 @@ import SwiftUI
 
 struct DSStoreManager: View {
     
-    @State private var folderPath: String?
+    @State var folderPath: String?
     @State private var folderTree: String?
     
     var body: some View {
-        HStack {
-            // Left part - Select the folder
+        HStack(alignment: .top) {
             VStack(alignment: .leading) {
-                Text("Select Your Target Folder")
-                    .font(.title)
-                    .padding()
-                Text(
-                    "Select one folder to export, import, or delete the .DS_Store file."
-                )
-                .padding()
-                Button("Select Folder", action: {
+                Button(action: {
                     folderPath = selectFolderPath()
-                    folderTree = StringifiedTree(path: folderPath!)
-                })
-                .padding()
-                Text("Folder Path:").padding()
-                if let folderPath = folderPath {
-                    Text(folderPath)
-                        .monospaced()
-                        .padding()
+                    if let path = folderPath {
+                        folderTree = StringifiedTree(path: path)
+                    }
+                }) {
+                    Label("Select Folder", systemImage: "folder")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .padding([.top, .bottom])
+                  
+                Text("Folder Path")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                TextField(
+                    "Folder Path",
+                    text: .constant(folderPath ?? "No folder chosen")
+                )
+                .font(.system(.body, design: .monospaced))
+                .lineLimit(1)
+                .disabled(true)
+                .textFieldStyle(.roundedBorder)
+                Text("Folder Tree")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                FileBrowserView(rootPath: $folderPath)
+                Spacer()
+            }
+            .padding()
+            .frame(maxWidth: .infinity)
+                
+            // 右侧 - 操作按钮部分
+            VStack(spacing: 16) {
+                    
+                    
+                GroupBox(label: Label("Actions", systemImage: "gearshape")) {
+                    VStack(spacing: 12) {
+                        Button(action: {
+                            let _folderPath = folderPath
+                            folderPath = nil
+                            folderPath = _folderPath
+                        }) {
+                            Label(
+                                "Refresh Tree",
+                                systemImage: "arrow.clockwise"
+                            )
+                        }
+                        .buttonStyle(.bordered)
+                            
+                        DSStoreExportButton(folderPath: $folderPath)
+                            
+                        DSStoreImportButton(folderPath: $folderPath)
+                            
+                        DSStoreDeleteButton(folderPath: $folderPath)
+                    }
                 }
             }
-            .frame(maxWidth: .infinity)
-            .multilineTextAlignment(.leading)
-            
-            Divider()
-            
-            // Right part - action buttons
-            VStack {
-                if folderPath != nil {
-                    VStack(alignment: .leading, spacing: 16) {
-                        ScrollView {
-                            Text(folderTree ?? "")
-                                .font(.system(.body, design: .monospaced))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                        .scrollIndicators(.hidden)
-                    }
-                    .padding()
-                    Divider()
-                }
-                VStack {
-                    Button("Refresh Tree") {
-                        if let folderPath = folderPath {
-                            folderTree = StringifiedTree(path: folderPath)
-                        }
-                    }.padding()
-                    DSStoreExportButton(folderPath: $folderPath).padding()
-                    DSStoreImportButton(folderPath: $folderPath).padding()
-                    DSStoreDeleteButton(folderPath: $folderPath).padding()
-                }
-            }.frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct FileNode: Identifiable {
+    let id = UUID()
+    let name: String
+    let path: String
+    var isDirectory: Bool
+    var children: [FileNode]?
+}
+
+func loadFileSystem(at path: String) -> [FileNode] {
+    let fileManager = FileManager.default
+    guard let contents = try? fileManager.contentsOfDirectory(atPath: path) else {
+        return []
+    }
+    return contents.compactMap { name in
+        let fullPath = (path as NSString).appendingPathComponent(name)
+        var isDirectory: ObjCBool = false
+        fileManager.fileExists(atPath: fullPath, isDirectory: &isDirectory)
+        return FileNode(
+            name: name,
+            path: fullPath,
+            isDirectory: isDirectory.boolValue,
+            children: isDirectory.boolValue ? loadFileSystem(at: fullPath) : nil
+        )
+    }
+}
+
+struct FileBrowserView: View {
+    
+    @Binding var rootPath: String?
+    @State private var fileSystem: [FileNode] = []
+    
+    var body: some View {
+        List {
+            if rootPath == nil {
+                Text("No folder chosen").foregroundStyle(.gray)
+            }
+            else {
+                if loadFileSystem(at: rootPath!).isEmpty {
+                    Text("Loading...")
+                        .foregroundColor(.gray)
+                }
+                else {
+                    OutlineGroup(
+                        loadFileSystem(at: rootPath!),
+                        children: \.children
+                    ) { node in
+                        HStack {
+                            Image(
+                                systemName: node.isDirectory ? "folder" : "doc.text"
+                            )
+                            .foregroundColor(node.isDirectory ? .yellow : .blue)
+                            Text(node.name)
+                        }
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .cornerRadius(8)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 struct DSStoreExportButton: View {
     
