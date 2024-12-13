@@ -8,7 +8,7 @@ func decodeDSStore(filePath: String?) -> (String, String) {
     
     let process = Process()
     if let exeFilePath = Bundle.main.path(
-        forResource: "extractDSStore",
+        forResource: "decodeDSStore",
         ofType: ""
     ) {
         process.executableURL = URL(fileURLWithPath: exeFilePath)
