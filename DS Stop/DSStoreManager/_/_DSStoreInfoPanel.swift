@@ -9,7 +9,11 @@ struct _DSStoreInfoPanel: View {
         VStack {
             Text("Selected File Info")
             if let selectPath = selectPath {
-                Text(decodeDSStore(filePath: selectPath).1)
+                if (selectPath as NSString).lastPathComponent == ".DS_Store" && isFile(
+                    path: selectPath
+                ) {
+                    Text(decodeDSStore(filePath: selectPath).0)
+                }
             }
         }
     }

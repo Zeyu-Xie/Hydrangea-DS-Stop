@@ -1,9 +1,9 @@
 import Foundation
 
-func decodeDSStore(filePath: String?) -> (String, String) {
+func decodeDSStore(filePath: String?) -> (String, Dictionary<String, Any>) {
     
     if filePath == nil {
-        return ("Error: The file path is nil.", "")
+        return ("Error: The file path is nil.", [:])
     }
     
     let process = Process()
@@ -13,7 +13,7 @@ func decodeDSStore(filePath: String?) -> (String, String) {
     ) {
         process.executableURL = URL(fileURLWithPath: exeFilePath)
     } else {
-        return ("Error: Failed to locate executive file extractDSStore.", "")
+        return ("Error: Failed to locate executive file extractDSStore.", [:])
     }
     
     process.arguments = [filePath!]
@@ -26,29 +26,30 @@ func decodeDSStore(filePath: String?) -> (String, String) {
         process.waitUntilExit()
         let data = outputPipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)
-        decodeJsonData(jsonString: output!)
         if output == nil {
-            return ("Error: The executive file returns nil.", "")
+            return ("Error: The executive file returns nil.", [:])
+        }
+        let (status, outputDict) = _decodeJsonData(jsonString: output!)
+        if status != "Success" {
+            return (status, [:])
         }
         else {
-            return ("Success", output!)
+            return ("Success", outputDict)
         }
     } catch {
-        return ("Error: Failed to run the executive file extractDSStore.", "")
+        return ("Error: Failed to run the executive file extractDSStore.", [:])
     }
 }
 
-func decodeJsonData(jsonString: String) {
+func _decodeJsonData(jsonString: String) -> (String, Dictionary<String, Any>) {
     if let jsonData = jsonString.data(using: .utf8) {
         do {
-            // 使用 JSONSerialization 解析
             if let dictionary = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
-                print("解析成功: \(dictionary)")
+                return ("Success", dictionary)
             }
         } catch {
-            print("解析失败: \(error.localizedDescription)")
+            return ("Error: \(error.localizedDescription)", [:])
         }
-    } else {
-        print("字符串转换为 Data 失败")
     }
+    return ("Error: Failed to transform the string from python.", [:])
 }
