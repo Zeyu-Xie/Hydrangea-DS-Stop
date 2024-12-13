@@ -26,6 +26,7 @@ func decodeDSStore(filePath: String?) -> (String, String) {
         process.waitUntilExit()
         let data = outputPipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)
+        decodeJsonData(jsonString: output!)
         if output == nil {
             return ("Error: The executive file returns nil.", "")
         }
@@ -34,5 +35,20 @@ func decodeDSStore(filePath: String?) -> (String, String) {
         }
     } catch {
         return ("Error: Failed to run the executive file extractDSStore.", "")
+    }
+}
+
+func decodeJsonData(jsonString: String) {
+    if let jsonData = jsonString.data(using: .utf8) {
+        do {
+            // 使用 JSONSerialization 解析
+            if let dictionary = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                print("解析成功: \(dictionary)")
+            }
+        } catch {
+            print("解析失败: \(error.localizedDescription)")
+        }
+    } else {
+        print("字符串转换为 Data 失败")
     }
 }

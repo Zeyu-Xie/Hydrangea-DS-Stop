@@ -21,7 +21,10 @@ if __name__ == "__main__":
     for fileName in ds_store_dict:
         for code in code_list:
             if code not in ds_store_dict[fileName]:
-                ds_store_dict[fileName][code] = None
+                ds_store_dict[fileName][code] = {
+                    "type": "None",
+                    "value": "None"
+                }
     output = {
         "fileName_list": list(fileName_list),
         "code_list": list(code_list),
