@@ -3,30 +3,17 @@ import SwiftUI
 struct _DSStoreFolderTreePanel: View {
     
     @Binding var folderPath: String?
+    @Binding var selectPath: String?
     
     var body: some View {
         VStack(alignment: .leading) {
             Text("Folder Tree")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-            FileBrowserView(rootPath: $folderPath)
+            FileBrowserView(rootPath: $folderPath, selectPath: $selectPath)
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 struct _FileNode: Identifiable {
     let id = UUID()
@@ -57,6 +44,7 @@ func _loadFileSystem(at path: String) -> [_FileNode] {
 struct FileBrowserView: View {
     
     @Binding var rootPath: String?
+    @Binding var selectPath: String?
     @State private var fileSystem: [_FileNode] = []
     
     var body: some View {
@@ -80,6 +68,9 @@ struct FileBrowserView: View {
                             )
                             .foregroundColor(node.isDirectory ? .yellow : .blue)
                             Text(node.name)
+                        }
+                        .onTapGesture {
+                            selectPath = node.path
                         }
                     }
                 }

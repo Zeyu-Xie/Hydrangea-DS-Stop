@@ -4,6 +4,7 @@ import Foundation
 struct DSStoreManager: View {
     
     @State private var folderPath: String?
+    @State private var selectPath: String?
         
     var body: some View {
         VStack {
@@ -11,11 +12,11 @@ struct DSStoreManager: View {
                 VStack {
                     _DSStoreFolderSelectPanel(folderPath: $folderPath).padding()
                     Divider()
-                    _DSStoreFolderTreePanel(folderPath: $folderPath).padding()
+                    _DSStoreFolderTreePanel(folderPath: $folderPath, selectPath: $selectPath).padding()
                 }
                 .frame(maxWidth: .infinity)
                 Divider()
-                _DSStoreInfoPanel(folderPath: $folderPath)
+                _DSStoreInfoPanel(folderPath: $folderPath, selectPath: $selectPath)
                     .frame(maxWidth: .infinity)
                     .padding()
             }

@@ -29,9 +29,33 @@
 		93E6770E2D0B67FA003B7A30 /* DS Stop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DS Stop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		938D3E1A2D0C60A900BE2032 /* Exceptions for "DS Stop" folder in "DS Stop" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				src/code/decodeDSStore.py,
+			);
+			target = 93C409172D064F5300A5B4D5 /* DS Stop */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		938D3E1B2D0C60A900BE2032 /* Exceptions for "DS Stop" folder in "Compile Sources" phase from "DS Stop" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 93C409142D064F5300A5B4D5 /* Sources */;
+			membershipExceptions = (
+				src/code/decodeDSStore.py,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		93C4091A2D064F5300A5B4D5 /* DS Stop */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				938D3E1A2D0C60A900BE2032 /* Exceptions for "DS Stop" folder in "DS Stop" target */,
+				938D3E1B2D0C60A900BE2032 /* Exceptions for "DS Stop" folder in "Compile Sources" phase from "DS Stop" target */,
+			);
 			path = "DS Stop";
 			sourceTree = "<group>";
 		};
