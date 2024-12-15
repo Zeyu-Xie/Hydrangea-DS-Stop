@@ -1,9 +1,9 @@
 import Foundation
 
-func decodeDSStore(filePath: String?) -> (String, Dictionary<String, Any>) {
+func decodeDSStore(filePath: String?) -> (String,String) {
     
     if filePath == nil {
-        return ("Error: The file path is nil.", [:])
+        return ("Error: The file path is nil.", "")
     }
     
     let process = Process()
@@ -13,7 +13,7 @@ func decodeDSStore(filePath: String?) -> (String, Dictionary<String, Any>) {
     ) {
         process.executableURL = URL(fileURLWithPath: exeFilePath)
     } else {
-        return ("Error: Failed to locate executive file extractDSStore.", [:])
+        return ("Error: Failed to locate executive file extractDSStore.", "")
     }
     
     process.arguments = [filePath!]
@@ -27,17 +27,11 @@ func decodeDSStore(filePath: String?) -> (String, Dictionary<String, Any>) {
         let data = outputPipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)
         if output == nil {
-            return ("Error: The executive file returns nil.", [:])
+            return ("Error: The executive file returns nil.", "")
         }
-        let (status, outputDict) = _decodeJsonData(jsonString: output!)
-        if status != "Success" {
-            return (status, [:])
-        }
-        else {
-            return ("Success", outputDict)
-        }
+        return ("Success", output!)
     } catch {
-        return ("Error: Failed to run the executive file extractDSStore.", [:])
+        return ("Error: Failed to run the executive file extractDSStore.", "")
     }
 }
 

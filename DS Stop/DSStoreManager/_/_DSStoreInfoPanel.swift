@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftCSV
 
 struct _DSStoreInfoPanel: View {
     
@@ -19,89 +20,83 @@ struct _DSStoreInfoPanel: View {
     }
     
     func loadInfoChart(selectPath: String?) -> (String, some View) {
+                        
         guard let selectPath = selectPath else {
-            return ("Error: The path is nil.", InfoGrid(table: [[""]]))
+            return (
+                "Error: The path is nil.",
+                _InfoGrid(status: "Error", table: [[]])
+            )
         }
-
-        let (status, infoJson) = decodeDSStore(filePath: selectPath)
+        
+        let (status, infoText) = decodeDSStore(filePath: selectPath)
         
         if status != "Success" {
-            return (status, InfoGrid(table: [[""]]))
+            return (status, _InfoGrid(status: "Error", table: [[]]))
         }
         
-        let fileNameList = infoJson["fileName_list"] as? Array<String> ?? []
-        let codeList = infoJson["code_list"] as? Array<String> ?? []
-        let dsStoreList: Dictionary<String, Dictionary<String, Any>> = infoJson["ds_store_dict"] as? Dictionary<String, Dictionary<String, Any>> ?? [:]
-                        
-        //        Row 0
-        var _codeList: Array<String> = [""]
-        for item in codeList {
-            _codeList.append(item)
-        }
-                
-        //        Row 1, 2, ...
-        var _dsStoreList: Array<Array<String>> = [[""]]
-        for i in 0..<fileNameList.count {
-            if i > 0 {
-                _dsStoreList.append([""])
+        let tableRows = infoText.split(separator: "\n")
+        let tableItems = tableRows.map { row -> [String] in
+            var items: [String] = []
+            var currentItem = ""
+            var insideQuotes = false
+
+            for char in row {
+                if char == "\"" {
+                    insideQuotes.toggle()
+                } else if char == "," && !insideQuotes {
+                    items.append(currentItem)
+                    currentItem = ""
+                } else {
+                    currentItem.append(char)
+                }
             }
-            let fileName: String = fileNameList[i]
-            _dsStoreList[i][0] = fileName
-            for j in 0..<codeList.count {
-                let code: String = codeList[j]
-                _dsStoreList[i]
-                    .append(dsStoreList[fileName]![code] as? String ?? "")
-            }
+            items.append(currentItem)
+            return items.map { $0.trimmingCharacters(in: .whitespaces) }
         }
         
-        var table: Array<Array<String>> = [_codeList]
-        for item in _dsStoreList {
-            table.append(item)
-        }
-        
-        print(table)
-        
-        
-        return ("Success", InfoGrid(table: table))
+        return (status, _InfoGrid(status: "Success", table: tableItems))
     }
 }
 
-struct InfoGrid: View {
-    
+struct _InfoGrid: View {
+    @State var status: String?
     @State var table: Array<Array<String>>
-    
     var body: some View {
-        
-        Grid(horizontalSpacing: 10, verticalSpacing: 10) {
-                   ForEach(table.indices, id: \.self) { rowIndex in
-                       GridRow {
-                           ForEach(table[rowIndex].indices, id: \.self) { columnIndex in
-                               Text(table[rowIndex][columnIndex])
-                                   .frame(minWidth: 50, maxWidth: .infinity, alignment: .center)
-                                   .padding()
-                                   .background(rowIndex == 0 ? Color.gray.opacity(0.2) : Color.clear) // Header row styling
-                                   .border(Color.gray, width: 1)
-                           }
-                       }
-                   }
-               }
-               .padding()
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        if status != "Success" {
+            EmptyView()
+        }
+        else {
+            
+            Grid {
+                ForEach(table.indices, id: \.self) { rowIndex in
+                    GridRow {
+                        ForEach(
+                            table[rowIndex].indices,
+                            id: \.self
+                        ) { columnIndex in
+                            Text(table[rowIndex][columnIndex])
+                                .frame(
+                                    minWidth: 100,
+                                    alignment: .center
+                                ) // 设定列宽
+                                .padding() // 增加内边距
+                                .background(
+                                    rowIndex == 0 ? Color.blue
+                                        .opacity(0.2) : Color.gray
+                                        .opacity(0.1)
+                                ) // 区分表头和内容
+                                .cornerRadius(4) // 添加圆角
+                                .border(Color.gray, width: 0.5) // 添加边框
+                                .multilineTextAlignment(.center) // 居中文本
+                        }
+                    }
+                    .background(
+                        rowIndex == 0 ? Color.blue.opacity(0.4) : Color.clear
+                    ) // 行背景色
+                }
+            }
+            .padding() // 整个表格的内边距
+            .border(Color.gray, width: 1) // 表格外边框
+        }
     }
 }

@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		93553B062D0F8CA100D74AAF /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 93553B052D0F8CA100D74AAF /* SwiftCSV */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		93C4092A2D064F5400A5B4D5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -76,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93553B062D0F8CA100D74AAF /* SwiftCSV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +133,7 @@
 			);
 			name = "DS Stop";
 			packageProductDependencies = (
+				93553B052D0F8CA100D74AAF /* SwiftCSV */,
 			);
 			productName = "DS Stop";
 			productReference = 93E6770E2D0B67FA003B7A30 /* DS Stop.app */;
@@ -212,6 +218,7 @@
 			mainGroup = 93C4090F2D064F5300A5B4D5;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				93553B042D0F8CA100D74AAF /* XCRemoteSwiftPackageReference "SwiftCSV" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 93C4090F2D064F5300A5B4D5;
@@ -577,6 +584,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		93553B042D0F8CA100D74AAF /* XCRemoteSwiftPackageReference "SwiftCSV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftcsv/SwiftCSV";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		93553B052D0F8CA100D74AAF /* SwiftCSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93553B042D0F8CA100D74AAF /* XCRemoteSwiftPackageReference "SwiftCSV" */;
+			productName = SwiftCSV;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 93C409102D064F5300A5B4D5 /* Project object */;
 }

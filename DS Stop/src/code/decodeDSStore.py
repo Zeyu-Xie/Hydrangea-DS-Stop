@@ -1,6 +1,6 @@
-from ds_store import DSStore
-import json
 import sys
+import csv
+from ds_store import DSStore
 
 
 def processValue(value):
@@ -15,6 +15,7 @@ if __name__ == "__main__":
     fileName_list = set()
     code_list = set()
     ds_store_dict = {}
+
     with DSStore.open(ds_store_file_path, mode="r") as ds_store:
         for entry in ds_store:
             fileName = entry.filename
@@ -25,13 +26,27 @@ if __name__ == "__main__":
             if fileName not in ds_store_dict:
                 ds_store_dict[fileName] = {}
             ds_store_dict[fileName][code] = processValue(value)
+
     for fileName in ds_store_dict:
         for code in code_list:
             if code not in ds_store_dict[fileName]:
                 ds_store_dict[fileName][code] = None
-    output = {
-        "fileName_list": list(fileName_list),
-        "code_list": list(code_list),
-        "ds_store_dict": ds_store_dict,
-    }
-    print(json.dumps(output))
+
+    file_list = sorted(fileName_list)
+    code_list = sorted(code_list)
+
+    csv_output = []
+    headers = ["fileName"] + code_list
+    csv_output.append(headers)
+
+    for fileName in file_list:
+        row = [fileName]
+        for code in code_list:
+            value = ds_store_dict[fileName].get(code, None)
+            row.append(str(value) if value is not None else "")
+        csv_output.append(row)
+
+    csv_string = ""
+    writer = csv.writer(sys.stdout, lineterminator="\n")
+    for row in csv_output:
+        writer.writerow(row)
