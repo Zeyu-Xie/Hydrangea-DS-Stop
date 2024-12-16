@@ -17,6 +17,9 @@ struct _DSStoreInfoPanel: View {
                 }
             }
         }
+        .onChange(of: folderPath, {
+            selectPath = nil
+        })
     }
     
     func loadInfoChart(selectPath: String?) -> (String, some View) {

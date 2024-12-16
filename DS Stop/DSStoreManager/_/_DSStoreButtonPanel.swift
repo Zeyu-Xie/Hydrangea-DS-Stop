@@ -2,6 +2,7 @@ import SwiftUI
 
 struct _DSStoreButtonPanel: View {
     @Binding var folderPath: String?
+    @Binding var selectPath: String?
     var body: some View {
         HStack {
             _DSStoreRefreshButton(folderPath: $folderPath)
@@ -9,7 +10,7 @@ struct _DSStoreButtonPanel: View {
             _DSStoreImportButton(folderPath: $folderPath)
             Spacer()
             _DSStoreQuitButton()
-            _DSStoreDeleteButton(folderPath: $folderPath)
+            _DSStoreDeleteButton(folderPath: $folderPath, selectPath: $selectPath)
         }
     }
 }
@@ -142,6 +143,7 @@ struct _DSStoreQuitButton: View {
 struct _DSStoreDeleteButton: View {
     
     @Binding var folderPath: String?
+    @Binding var selectPath: String?
     
     @State private var isPresented: Bool = false
     @State private var status: String = ""
@@ -152,6 +154,7 @@ struct _DSStoreDeleteButton: View {
             (status, fileList) = delete_DSStore(
                 folderPath: folderPath
             )
+            selectPath = nil
             isPresented = true
         }) {
             Label(

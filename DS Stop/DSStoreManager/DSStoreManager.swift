@@ -22,7 +22,7 @@ struct DSStoreManager: View {
             }
             .frame(maxHeight: .infinity)
             Divider()
-            _DSStoreButtonPanel(folderPath: $folderPath).padding()
+            _DSStoreButtonPanel(folderPath: $folderPath, selectPath: $selectPath).padding()
         }
     }
 }
