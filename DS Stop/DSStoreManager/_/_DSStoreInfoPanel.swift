@@ -7,13 +7,17 @@ struct _DSStoreInfoPanel: View {
     @Binding var selectPath: String?
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Selected File Info")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
             if let selectPath = selectPath {
                 if (selectPath as NSString).lastPathComponent == ".DS_Store" && isFile(
                     path: selectPath
                 ) {
-                    loadInfoChart(selectPath: selectPath).1
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        loadInfoChart(selectPath: selectPath).1
+                    }.frame(maxWidth: .infinity)
                 }
             }
         }
@@ -90,16 +94,15 @@ struct _InfoGrid: View {
                                 ) // 区分表头和内容
                                 .cornerRadius(4) // 添加圆角
                                 .border(Color.gray, width: 0.5) // 添加边框
-                                .multilineTextAlignment(.center) // 居中文本
+                                .multilineTextAlignment(.center)
                         }
                     }
                     .background(
                         rowIndex == 0 ? Color.blue.opacity(0.4) : Color.clear
-                    ) // 行背景色
+                    )
                 }
             }
-            .padding() // 整个表格的内边距
-            .border(Color.gray, width: 1) // 表格外边框
+            .padding(.vertical)
         }
     }
 }
