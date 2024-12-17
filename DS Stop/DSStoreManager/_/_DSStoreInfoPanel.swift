@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftCSV
 
 struct _DSStoreInfoPanel: View {
     
