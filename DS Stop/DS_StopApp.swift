@@ -6,5 +6,14 @@ struct DS_StopApp: App {
         WindowGroup {
             ContentView()
         }
+        .commands {
+            CommandGroup(replacing: .appInfo) { }
+            CommandGroup(after: .windowArrangement) {
+                Button("Revert Window") {
+//                    ?
+                }
+                .keyboardShortcut("r", modifiers: [.command])
+            }
+        }
     }
 }

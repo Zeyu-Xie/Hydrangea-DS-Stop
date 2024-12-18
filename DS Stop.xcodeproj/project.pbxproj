@@ -24,9 +24,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		939733802D0B70E600AFE205 /* DS StopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DS StopTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		939733812D0B70E600AFE205 /* DS StopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DS StopUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		93E6770E2D0B67FA003B7A30 /* DS Stop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DS Stop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		939733802D0B70E600AFE205 /* DS StopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "DS StopTests.xctest"; path = "/Users/zeyuxie/Documents/GitHub/Hydrangea-DS-Stop/build/Debug/DS Stop.app/Contents/PlugIns/DS StopTests.xctest"; sourceTree = "<absolute>"; };
+		939733812D0B70E600AFE205 /* DS StopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "DS StopUITests.xctest"; path = "/Users/zeyuxie/Documents/GitHub/Hydrangea-DS-Stop/build/Debug/DS StopUITests-Runner.app/Contents/PlugIns/DS StopUITests.xctest"; sourceTree = "<absolute>"; };
+		93E6770E2D0B67FA003B7A30 /* DS Stop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "DS Stop.app"; path = "/Users/zeyuxie/Documents/GitHub/Hydrangea-DS-Stop/build/Debug/DS Stop.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -39,22 +39,11 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		938D3E1B2D0C60A900BE2032 /* Exceptions for "DS Stop" folder in "Compile Sources" phase from "DS Stop" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 93C409142D064F5300A5B4D5 /* Sources */;
-			membershipExceptions = (
-				src/code/decodeDSStore.py,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		93C4091A2D064F5300A5B4D5 /* DS Stop */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				938D3E1A2D0C60A900BE2032 /* Exceptions for "DS Stop" folder in "DS Stop" target */,
-				938D3E1B2D0C60A900BE2032 /* Exceptions for "DS Stop" folder in "Compile Sources" phase from "DS Stop" target */,
 			);
 			path = "DS Stop";
 			sourceTree = "<group>";
@@ -102,9 +91,6 @@
 				93C4091A2D064F5300A5B4D5 /* DS Stop */,
 				93C4092C2D064F5400A5B4D5 /* DS StopTests */,
 				93C409362D064F5400A5B4D5 /* DS StopUITests */,
-				93E6770E2D0B67FA003B7A30 /* DS Stop.app */,
-				939733802D0B70E600AFE205 /* DS StopTests.xctest */,
-				939733812D0B70E600AFE205 /* DS StopUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
