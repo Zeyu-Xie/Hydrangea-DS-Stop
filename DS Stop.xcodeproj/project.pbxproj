@@ -24,9 +24,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		939733802D0B70E600AFE205 /* DS StopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "DS StopTests.xctest"; path = "/Users/zeyuxie/Documents/GitHub/Hydrangea-DS-Stop/build/Debug/DS Stop.app/Contents/PlugIns/DS StopTests.xctest"; sourceTree = "<absolute>"; };
-		939733812D0B70E600AFE205 /* DS StopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "DS StopUITests.xctest"; path = "/Users/zeyuxie/Documents/GitHub/Hydrangea-DS-Stop/build/Debug/DS StopUITests-Runner.app/Contents/PlugIns/DS StopUITests.xctest"; sourceTree = "<absolute>"; };
-		93E6770E2D0B67FA003B7A30 /* DS Stop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "DS Stop.app"; path = "/Users/zeyuxie/Documents/GitHub/Hydrangea-DS-Stop/build/Debug/DS Stop.app"; sourceTree = "<absolute>"; };
+		939308CB2D1390EB0038491B /* DS Stop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "DS Stop.app"; path = "/Users/zeyuxie/Documents/GitHub/Hydrangea-DS-Stop/build/Debug/DS Stop.app"; sourceTree = "<absolute>"; };
+		939308CC2D1390EB0038491B /* DS StopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "DS StopTests.xctest"; path = "/Users/zeyuxie/Documents/GitHub/Hydrangea-DS-Stop/build/Debug/DS Stop.app/Contents/PlugIns/DS StopTests.xctest"; sourceTree = "<absolute>"; };
+		939308CD2D1390EB0038491B /* DS StopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "DS StopUITests.xctest"; path = "/Users/zeyuxie/Documents/GitHub/Hydrangea-DS-Stop/build/Debug/DS StopUITests-Runner.app/Contents/PlugIns/DS StopUITests.xctest"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -116,7 +116,7 @@
 			packageProductDependencies = (
 			);
 			productName = "DS Stop";
-			productReference = 93E6770E2D0B67FA003B7A30 /* DS Stop.app */;
+			productReference = 939308CB2D1390EB0038491B /* DS Stop.app */;
 			productType = "com.apple.product-type.application";
 		};
 		93C409282D064F5400A5B4D5 /* DS StopTests */ = {
@@ -139,7 +139,7 @@
 			packageProductDependencies = (
 			);
 			productName = "DS StopTests";
-			productReference = 939733802D0B70E600AFE205 /* DS StopTests.xctest */;
+			productReference = 939308CC2D1390EB0038491B /* DS StopTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		93C409322D064F5400A5B4D5 /* DS StopUITests */ = {
@@ -162,7 +162,7 @@
 			packageProductDependencies = (
 			);
 			productName = "DS StopUITests";
-			productReference = 939733812D0B70E600AFE205 /* DS StopUITests.xctest */;
+			productReference = 939308CD2D1390EB0038491B /* DS StopUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
