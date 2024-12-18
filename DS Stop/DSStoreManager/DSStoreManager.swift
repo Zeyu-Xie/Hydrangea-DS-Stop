@@ -9,7 +9,7 @@ struct DSStoreManager: View {
     var body: some View {
         VStack {
             HStack(alignment: .top) {
-                VStack {
+                VStack(alignment: .center) {
                     _DSStoreFolderSelectPanel(folderPath: $folderPath).padding()
                     Divider()
                     _DSStoreFolderTreePanel(
@@ -18,7 +18,7 @@ struct DSStoreManager: View {
                     )
                     .padding()
                 }
-                .frame(width: 384)
+                .frame(minWidth: 300)
                 Divider()
                 VStack(alignment: .leading) {
                     _DSStoreInfoPanel(
@@ -26,10 +26,11 @@ struct DSStoreManager: View {
                         selectPath: $selectPath
                     )
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
                 }
-                .padding()
-                .frame(width: 600)
+                .frame(minWidth: 400)
             }
+            .frame(minHeight: 400)
             Divider()
             _DSStoreButtonPanel(
                 folderPath: $folderPath,

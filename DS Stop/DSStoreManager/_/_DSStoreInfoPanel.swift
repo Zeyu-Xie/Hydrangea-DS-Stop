@@ -67,6 +67,10 @@ struct _DSStoreInfoPanel: View {
 struct _InfoGrid: View {
     @State var status: String?
     @State var table: Array<Array<String>>
+    
+    @State private var isPresented: Bool = false
+    @State private var presentText: String? = nil
+    
     var body: some View {
         if status != "Success" {
             EmptyView()
@@ -80,25 +84,38 @@ struct _InfoGrid: View {
                             table[rowIndex].indices,
                             id: \.self
                         ) { columnIndex in
-                            Text(table[rowIndex][columnIndex])
-                                .frame(
-                                    minWidth: 100,
-                                    alignment: .center
-                                ) // 设定列宽
-                                .padding() // 增加内边距
-                                .background(
-                                    rowIndex == 0 ? Color.blue
-                                        .opacity(0.2) : Color.gray
-                                        .opacity(0.1)
-                                ) // 区分表头和内容
-                                .cornerRadius(4) // 添加圆角
-                                .border(Color.gray, width: 0.5) // 添加边框
+                            
+                            if rowIndex == 0 {
+                                Text(table[rowIndex][columnIndex])
+                                    .bold()
+                                    .frame(maxWidth: 150)
+                                    .padding()
+                                    .multilineTextAlignment(.center)
+                                    .background(.blue)
+                                    .cornerRadius(8)
+                            }
+                            
+                            else {
+                                Button(action: {
+                                    presentText = table[rowIndex][columnIndex]
+                                    isPresented = true
+                                }) {
+                                    Text(table[rowIndex][columnIndex])
+                                }
+                                .buttonStyle(LinkButtonStyle())
+                                .frame(maxWidth: 150)
+                                .padding()
                                 .multilineTextAlignment(.center)
+                                .alert(isPresented: $isPresented) {
+                                    return Alert(
+                                        title: Text("Item Info"),
+                                        message: Text(presentText!),
+                                        dismissButton: .default(Text("OK"))
+                                    )
+                                }
+                            }
                         }
                     }
-                    .background(
-                        rowIndex == 0 ? Color.blue.opacity(0.4) : Color.clear
-                    )
                 }
             }
             .padding(.vertical)

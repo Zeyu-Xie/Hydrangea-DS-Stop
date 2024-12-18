@@ -20,7 +20,7 @@ struct _DSStoreFolderSelectPanel: View {
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
-            .padding([.top, .bottom])
+            .padding(.bottom)
             .alert(isPresented: $isPresented) {
                 return Alert(
                     title: Text("Path not Selected"),

@@ -75,7 +75,6 @@ struct _DSStoreExportButton: View {
                 "Export",
                 systemImage: "square.and.arrow.up"
             )
-            
         }
     }
 }
@@ -113,7 +112,6 @@ struct _DSStoreImportButton: View {
                 )
             }
         }
-        
     }
 }
 
