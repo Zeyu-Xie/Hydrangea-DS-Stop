@@ -1,3 +1,10 @@
+//
+//  deleteDSStore.swift
+//  DS Stop
+//
+//  Created by Zeyu Xie on 2024-12-19.
+//
+
 import Foundation
 
 func delete_DSStore(folderPath: String?) -> (String, Array<String>) {

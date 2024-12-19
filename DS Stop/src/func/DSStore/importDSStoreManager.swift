@@ -1,3 +1,10 @@
+//
+//  importDSStoreManager.swift
+//  DS Stop
+//
+//  Created by Zeyu Xie on 2024-12-19.
+//
+
 import Foundation
 import SwiftUI
 
@@ -45,4 +52,3 @@ func import_DSStore(folderPath: String?) -> (String, Array<String>) {
         return ("Error: Failed to decode the JSON file.", [])
     }
 }
-

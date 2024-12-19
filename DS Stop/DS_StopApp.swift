@@ -1,3 +1,10 @@
+//
+//  DS_StopApp.swift
+//  DS Stop
+//
+//  Created by Zeyu Xie on 2024-12-19.
+//
+
 import SwiftUI
 
 @main

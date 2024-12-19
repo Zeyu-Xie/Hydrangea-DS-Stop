@@ -1,3 +1,10 @@
+//
+//  extractFile.swift
+//  DS Stop
+//
+//  Created by Zeyu Xie on 2024-12-19.
+//
+
 import Foundation
 
 func _extractFile(folderPath: String?, fileNames: Array<String>) -> (
